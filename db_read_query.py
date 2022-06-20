@@ -10,11 +10,11 @@ def query_iot_data(db, query_start_time, query_end_time, nid, channels_list=None
     
     try:
         channels_str = "|".join(channels_list)
-        q = f""" SELECT W, nid, channel FROM "{database}" WHERE ("nid" = '{nid}') and ("channel" =~ /^({channels_str})$/) and (time >= '{query_start_time_str}') and (time < '{query_end_time_str}')"""
+        q = f""" SELECT W, nid, channel FROM "{db.database}" WHERE ("nid" = '{nid}') and ("channel" =~ /^({channels_str})$/) and (time >= '{query_start_time_str}') and (time < '{query_end_time_str}')"""
 
     except:
         
-        q = f""" SELECT W, nid, channel FROM "{database}" WHERE ("nid" = '{nid}') and (time >= '{query_start_time_str}') and (time < '{query_end_time_str}')"""
+        q = f""" SELECT W, nid, channel FROM "{db.database}" WHERE ("nid" = '{nid}') and (time >= '{query_start_time_str}') and (time < '{query_end_time_str}')"""
     
     results_gen3 = client_gen3.query(q)
 
