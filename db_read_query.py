@@ -30,8 +30,7 @@ def query_iot_data(db, query_start_time, query_end_time, nid, channels_list=None
                           'channel':pd.Series(dtype='str')})
         return df
 
-def db_read_query(db, query_start_time, query_end_time, df_meta, 
-                  iot_columns_for_join = ['nid', 'channel'],
+def db_read_query(db, query_start_time, query_end_time, df_meta,
                   meta_columns_for_join = ['nid', 'channel_number']):
     
     nids_groups = df_meta.groupby([meta_columns_for_join[0]])
@@ -42,13 +41,9 @@ def db_read_query(db, query_start_time, query_end_time, df_meta,
         
         df_iot_nid = query_iot_data(db, query_start_time, query_end_time, nid, channels_list=groups[meta_columns_for_join[1]].to_list())
         df_iot_all = pd.concat([df_iot_all, df_iot_nid])
-        
-    
-    columns_for_join = iot_columns_for_join+meta_columns_for_join
-    df_joined = df_iot_all.merge(df_meta, left_on=iot_columns_for_join, right_on=meta_columns_for_join).drop(columns=columns_for_join)
 
 
-    df_joined.time = pd.to_datetime(df_joined.time)
-    df_joined_ti = df_joined.set_index('time')
+    df_iot_all.time = pd.to_datetime(df_iot_all.time)
+    df_iot_all_ti = df_iot_all.set_index('time')
 
-    return df_joined_ti
+    return df_iot_all_ti
