@@ -31,7 +31,9 @@ def enriching_time_features(df_meta_with_value, weekend=5, end_time="18:00:00", 
                                             (df_meta_with_value["time_of_day"] < pd.to_datetime(start_time).time())
     return df_meta_with_value
 
-def statement_for_biggest_ooh(df_ooh_biggest):
+def statement_for_biggest_ooh(df_asset_group_monthly_sum_others, number_for_pick_out=3):
+
+    df_ooh_biggest = df_asset_group_monthly_sum_others.head(number_for_pick_out+1).tail(number_for_pick_out).drop(columns=['gt_4pct','sum_for_sort'])
     
     statement = f"""The biggest out-of-hour consumers of energy are """
 
@@ -44,9 +46,9 @@ def statement_for_biggest_ooh(df_ooh_biggest):
     
     return statement
 
-def statement_for_total_ooh(df_ooh_total, row_index_for_total='Total'):
-    
-    sub_pct_value = df_ooh_total['sub_pct'][row_index_for_total]
+def statement_for_total_ooh(df_asset_group_monthly_sum_others, row_index_for_total='Total'):
+
+    sub_pct_value = df_asset_group_monthly_sum_others['sub_pct'][row_index_for_total]
     sub_pct_abs_value = round(abs(sub_pct_value * 100))
 
     if sub_pct_abs_value > 1:
