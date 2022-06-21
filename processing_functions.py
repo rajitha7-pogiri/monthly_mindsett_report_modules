@@ -30,3 +30,16 @@ def enriching_time_features(df_meta_with_value, weekend=5, end_time="18:00:00", 
                                             (df_meta_with_value["time_of_day"] > pd.to_datetime(end_time).time()) | \
                                             (df_meta_with_value["time_of_day"] < pd.to_datetime(start_time).time())
     return df_meta_with_value
+
+def statement_for_biggest_ooh(df_ooh_biggest):
+    
+    statement = f"""The biggest out-of-hour consumers of energy are """
+
+    for index, item in enumerate(df_ooh_biggest['sum'].round().astype('int').iteritems()):
+
+        statement_item = str(index+1)+'. '+item[0]+' '+str(item[1])+'kwh, '
+        statement += statement_item
+
+    statement[:-2]+' over previous period.'
+    
+    return statement
