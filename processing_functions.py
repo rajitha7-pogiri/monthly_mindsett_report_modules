@@ -67,6 +67,7 @@ def preprocessing_for_statement(df_meta_with_value,
                                 asset_group='asset_class',
                                 row_index_for_total = "Total", 
                                 reading_interval_in_mins=10,
+                                pct_level_tobe_others = 0.06,
                                 month_current=None,
                                 month_step=1):
     
