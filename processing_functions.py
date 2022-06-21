@@ -42,7 +42,7 @@ def statement_for_biggest_ooh(df_asset_group_monthly_sum_others, number_for_pick
         statement_item = str(index+1)+'. '+item[0]+' '+str(item[1])+'kwh, '
         statement += statement_item
 
-    statement[:-2]+' over previous period.'
+    statement = statement[:-2]+' over previous period.'
     
     return statement
 
