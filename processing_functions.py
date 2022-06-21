@@ -1,4 +1,4 @@
-
+from datetime import date
 import pandas as pd
 
 def resample_by_channels(df_source, reading_interval_in_mins=10):
@@ -114,7 +114,5 @@ def preprocessing_for_statement(df_meta_with_value,
     df_asset_group_monthly_sum_others.loc["Others", "sum_for_sort"] = 0
 
     df_asset_group_monthly_sum_others.sort_values(["sum_for_sort"], ascending=False, inplace=True)
-
     df_asset_group_monthly_sum_others["sub_pct"] = df_asset_group_monthly_sum_others["sub"]/df_asset_group_monthly_sum_others["sum_pre"]
-
     return df_asset_group_monthly_sum_others
