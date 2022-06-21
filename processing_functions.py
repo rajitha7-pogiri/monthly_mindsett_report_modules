@@ -63,6 +63,12 @@ def statement_for_total_ooh(df_asset_group_monthly_sum_others, row_index_for_tot
         
     return statement
 
+def get_group_with_others(row, asset_group):
+    if row["gt_4pct"]:
+        return row[asset_group]
+    else:
+        return "Others"
+
 def preprocessing_for_statement(df_meta_with_value, 
                                 asset_group='asset_class',
                                 row_index_for_total = "Total", 
