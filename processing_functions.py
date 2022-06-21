@@ -10,3 +10,23 @@ def resample_by_channels(df_source, reading_interval_in_mins=10):
     df_source_filled['channel']= df_source_filled['channel'].astype(str)
     
     return df_source_filled
+
+def enriching_time_features(df_meta_with_value, weekend=5, end_time="18:00:00", start_time="08:00:00"):
+    
+    # manipulate and clean the data
+    df_meta_with_value.time=pd.to_datetime(df_meta_with_value.time) 
+    df_meta_with_value = df_meta_with_value.set_index("time") 
+
+    # enrich_time_information
+    df_meta_with_value["date"] = df_meta_with_value.index.date
+    df_meta_with_value["day_of_month"] = df_meta_with_value.index.day
+    df_meta_with_value["time_of_day"] = df_meta_with_value.index.time
+    df_meta_with_value["weekday"] = df_meta_with_value.index.weekday
+    df_meta_with_value["day_name"] = df_meta_with_value.index.day_name()
+    df_meta_with_value["day_code"] = df_meta_with_value["day_name"].str[0]
+    df_meta_with_value["month"] = df_meta_with_value.index.month
+
+    df_meta_with_value["out_of_hours"] = df_meta_with_value['weekday'].ge(weekend) | \
+                                            (df_meta_with_value["time_of_day"] > pd.to_datetime(end_time).time()) | \
+                                            (df_meta_with_value["time_of_day"] < pd.to_datetime(start_time).time())
+    return df_meta_with_value
