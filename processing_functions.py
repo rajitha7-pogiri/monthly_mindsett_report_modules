@@ -43,3 +43,20 @@ def statement_for_biggest_ooh(df_ooh_biggest):
     statement[:-2]+' over previous period.'
     
     return statement
+
+def statement_for_total_ooh(df_ooh_total, row_index_for_total='Total'):
+    
+    sub_pct_value = df_ooh_total['sub_pct'][row_index_for_total]
+    sub_pct_abs_value = round(abs(sub_pct_value * 100))
+
+    if sub_pct_abs_value > 1:
+        if sub_pct_value > 0:
+            statement_direction = "up"
+        else:
+            statement_direction = "down"
+        statement = f"""The out-of-hour use had gone {statement_direction} by {sub_pct_abs_value}% previous week."""
+
+    else:   
+        statement = f"""The out-of-hour use had been similar to previous week."""
+        
+    return statement
