@@ -1,5 +1,6 @@
 from fpdf import FPDF
 from PIL import ImageColor
+from os import path
 
 import colorsys
 
