@@ -15,7 +15,7 @@ from matplotlib.patheffects import PathPatchEffect, SimpleLineShadow, Normal
 from os import path
 
 
-image_folder = path.join(path.dirname(__file__), 'assets/')
+assets_folder = path.join(path.dirname(__file__), 'assets/energy_meter_with_benchmarking/')
 
 cd = {"tomato": '#FF836A',"aquablue": '#6DC2B3',"peach": '#FED6D2',"darkgrey": '#9F9D9C',"potato": '#FEF8C8',
       "cyan": '#B6E4E1',"dimgray":'#696969',"Seafoam":'#87e0cf',"gainsboro":'#DCDCDC'}
@@ -26,7 +26,7 @@ def energy_meter_design(ax, consumption_mwh_cur, consumption_mwh_pre,
                         fx = 0.2, # fancy box x-axis value
                         fy = 0.3, # fancy box y-axis value
                         fs  = 0.6, # fancy box scale factor
-                        image_folder = image_folder
+                        image_folder = assets_folder
                         ):
 
     ax.set_xlim(0.2, 0.9)
@@ -333,7 +333,7 @@ def energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, flo
                                     fx = 0.2, # fancy box x-axis value
                                     fy = 0.3, # fancy box y-axis value
                                     fs  = 0.6, # fancy box scale factor
-                                    image_folder = image_folder,
+                                    image_folder = assets_folder,
                                     kwh_per_sqm_good = 10.33,
                                     kwh_per_sqm_typical = 14.5,
                                     path_for_fig = None
