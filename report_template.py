@@ -65,7 +65,7 @@ class PDF(FPDF):
                 self.set_x(self.get_x() + space_width)
         
 
-def generate_report(cd, site_name, statements_list=None, organisation=None, report_file_name='Mindsett_Apr_CharterHouse_v.1.pdf'):
+def generate_report(site_name, statements_list=None, organisation=None, report_file_name='Mindsett_Apr_CharterHouse_v.1.pdf'):
 
     pdf = PDF()
     pdf.add_page()
