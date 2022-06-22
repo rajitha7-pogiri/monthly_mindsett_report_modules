@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 from .db_read_query import  db_read_query
 
 from .preprocessing_for_piechart import preprocessing_for_piechart, get_group_with_others
+from .preprocessing_for_barchart import preprocessing_for_barchart
 
 def resample_by_channels(df_source, reading_interval_in_mins=10):
     
