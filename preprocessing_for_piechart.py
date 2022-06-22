@@ -1,6 +1,12 @@
 from datetime import date
 import pandas as pd
 
+def get_group_with_others(row, asset_group):
+    if row["gt_4pct"]:
+        return row[asset_group]
+    else:
+        return "Others"
+
 def preprocessing_for_piechart(df_meta_with_value, 
                                 asset_group='asset_class',
                                 reading_interval_in_mins=10,
