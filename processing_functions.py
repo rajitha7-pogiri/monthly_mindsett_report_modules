@@ -1,5 +1,6 @@
 from datetime import date
 import pandas as pd
+from sqlalchemy import create_engine
 
 def resample_by_channels(df_source, reading_interval_in_mins=10):
     
@@ -87,6 +88,7 @@ def preprocessing_for_statement(df_meta_with_value,
 
     df_pivot_asset_group_by_month = sr_pivot_asset_group.unstack(["out_of_hours"]).rename(columns={True:'sum'})['sum']
 
+    # can be improved by using the 'month' information from the dataframe
     if month_current is None:#
         today = date.today()
         month_current = int(today.strftime("%m")) - 1
@@ -122,4 +124,23 @@ def preprocessing_for_statement(df_meta_with_value,
 
     df_asset_group_monthly_sum_others.sort_values(["sum_for_sort"], ascending=False, inplace=True)
     df_asset_group_monthly_sum_others["sub_pct"] = df_asset_group_monthly_sum_others["sub"]/df_asset_group_monthly_sum_others["sum_pre"]
+    
     return df_asset_group_monthly_sum_others
+
+
+def import_metadata(db, site_name, organisation=None):
+
+    engine = create_engine(db.ENGINE)
+
+    conn = engine.connect().execution_options(stream_results=True)
+
+    if organisation is None:
+        df_meta = pd.read_sql_query(f"""select * from {db.table_name} where site_name='{site_name}';""",
+                                    con=conn)
+    else:
+        df_meta = pd.read_sql_query(f"""select * from {db.table_name} where organisation='{organisation}' and site_name='{site_name}';""",
+                                    con=conn)
+
+    df_meta.channel_number = df_meta.channel_number.astype(str)
+    
+    return df_meta
