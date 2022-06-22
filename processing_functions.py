@@ -4,6 +4,8 @@ from sqlalchemy import create_engine
 
 from .db_read_query import  db_read_query
 
+from .preprocessing_for_piechart import preprocessing_for_piechart
+
 def resample_by_channels(df_source, reading_interval_in_mins=10):
     
     df_source_grouped = df_source.groupby(["nid", "channel", pd.Grouper(freq=f'{reading_interval_in_mins}Min')]).mean()
@@ -154,7 +156,6 @@ def import_metadata(db, site_name, organisation=None, exception=None):
     df_meta.channel_number = df_meta.channel_number.astype(str)
     
     return df_meta
-
 
 def import_data_with_meta(db_meta, db_iot, start_time, end_time, site_name, 
                           organisation=None, 
