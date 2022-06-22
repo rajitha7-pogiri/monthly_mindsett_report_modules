@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 
 from .db_read_query import  db_read_query
 
-from .preprocessing_for_piechart import preprocessing_for_piechart
+from .preprocessing_for_piechart import preprocessing_for_piechart, get_group_with_others
 
 def resample_by_channels(df_source, reading_interval_in_mins=10):
     
@@ -67,12 +67,6 @@ def statement_for_total_ooh(df_asset_group_monthly_sum_others, row_index_for_tot
         statement = f"""The out-of-hour use had been similar to previous week."""
         
     return statement
-
-def get_group_with_others(row, asset_group):
-    if row["gt_4pct"]:
-        return row[asset_group]
-    else:
-        return "Others"
 
 def preprocessing_for_statement(df_meta_with_value, 
                                 asset_group='asset_class',

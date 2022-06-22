@@ -14,6 +14,11 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
                                          tick_range_o= None,
                                          df_occupancy_cur= None):
 
+        df_pivot_working_hours[False].fillna(0)
+        # df_pivot_working_hours[True].fillna(0)
+
+        df_pivot_working_hours.reset_index(drop=True, inplace=True)
+
         fig, ax = plt.subplots(1, 1, figsize=fs)
 
         plt.style.use('seaborn-white')# set ggplot style
@@ -78,8 +83,8 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
         ax_l.set_xticklabels(day_code_list)
         ax_l.tick_params(axis='x', which='major', pad=8)
-        top_index = df_pivot_working_hours.index.min() - pd.Timedelta("1D")
-        bot_index = df_pivot_working_hours.index.max() + pd.Timedelta("1D")
+        top_index = df_pivot_working_hours.index.min() - 1
+        bot_index = df_pivot_working_hours.index.max() + 1
         ax.set_xlim([top_index, bot_index])
         fig.tight_layout()
         if path_for_fig is not None:
