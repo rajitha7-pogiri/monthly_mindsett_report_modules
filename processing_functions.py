@@ -12,7 +12,7 @@ def resample_by_channels(df_source, reading_interval_in_mins=10):
     
     return df_source_filled
 
-def enriching_time_features(df_meta_with_value, weekend=5, end_time="18:00:00", start_time="08:00:00"):
+def enriching_time_features(df_meta_with_value, weekend=5, working_end_time="18:00:00", working_start_time="08:00:00"):
     
     # manipulate and clean the data
     df_meta_with_value.time=pd.to_datetime(df_meta_with_value.time) 
@@ -28,8 +28,8 @@ def enriching_time_features(df_meta_with_value, weekend=5, end_time="18:00:00", 
     df_meta_with_value["month"] = df_meta_with_value.index.month
 
     df_meta_with_value["out_of_hours"] = df_meta_with_value['weekday'].ge(weekend) | \
-                                            (df_meta_with_value["time_of_day"] > pd.to_datetime(end_time).time()) | \
-                                            (df_meta_with_value["time_of_day"] < pd.to_datetime(start_time).time())
+                                            (df_meta_with_value["time_of_day"] > pd.to_datetime(working_end_time).time()) | \
+                                            (df_meta_with_value["time_of_day"] < pd.to_datetime(working_start_time).time())
     return df_meta_with_value
 
 def statement_for_biggest_ooh(df_asset_group_monthly_sum_others, number_for_pick_out=3):
@@ -128,17 +128,25 @@ def preprocessing_for_statement(df_meta_with_value,
     return df_asset_group_monthly_sum_others
 
 
-def import_metadata(db, site_name, organisation=None):
+def import_metadata(db, site_name, organisation=None, exception=None):
+
+    statement_list = [f""""site_name"='{site_name}'"""]
+
+    if organisation is not None:
+        statement_new  = f""""organisation" = '{organisation}'"""
+        statement_list.append(statement_new)
+
+    if exception is not None:
+        for key in exception:
+            statement_new  = f""""{key}" != '{exception[key]}'"""
+            statement_list.append(statement_new)
 
     engine = create_engine(db.ENGINE)
 
     conn = engine.connect().execution_options(stream_results=True)
-
-    if organisation is None:
-        df_meta = pd.read_sql_query(f"""select * from {db.table_name} where site_name='{site_name}';""",
-                                    con=conn)
-    else:
-        df_meta = pd.read_sql_query(f"""select * from {db.table_name} where organisation='{organisation}' and site_name='{site_name}';""",
+    
+    statement_full = " and ".join(statement_list)
+    df_meta = pd.read_sql_query(f"""select * from {db.table_name} where {statement_full};""",
                                     con=conn)
 
     df_meta.channel_number = df_meta.channel_number.astype(str)
