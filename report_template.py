@@ -5,20 +5,21 @@ import colorsys
 
 cd = {"tomato": '#FF836A',"aquablue": '#6DC2B3',"peach": '#FED6D2',"darkgrey": '#9F9D9C',"potato": '#FEF8C8',"cyan": '#B6E4E1'}
 
+assets_folder = path.join(path.dirname(__file__), 'assets/report_template/')
 
 class PDF(FPDF):
 
     def header(self):
         #Logo
-        self.image('./assets/LetterHead - header - Mindsett.png', 0, 0, self.w)
+        self.image(assets_folder+'LetterHead - header - Mindsett.png', 0, 0, self.w)
         #Fontsize and type
         self.set_font('Arial', 'B', 15)
-        self.image("./assets/mindsett_logo_white_transparent.png", 15, 15, 45)
+        self.image(assets_folder+"mindsett_logo_white_transparent.png", 15, 15, 45)
         
     def footer(self):
         #Logo
         footer_height = 32
-        img_path = './assets/LetterHead - Footer - Mindsett.png'
+        img_path = assets_folder+'LetterHead - Footer - Mindsett.png'
         footer_width = 210
         self.image(img_path, 0, self.h-footer_height, footer_width)
         self.set_font('Arial', 'B', 15)
