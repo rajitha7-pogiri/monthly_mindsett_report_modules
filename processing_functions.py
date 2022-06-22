@@ -2,7 +2,7 @@ from datetime import date
 import pandas as pd
 from sqlalchemy import create_engine
 
-from db_read_query import  db_read_query
+from .db_read_query import  db_read_query
 
 def resample_by_channels(df_source, reading_interval_in_mins=10):
     
