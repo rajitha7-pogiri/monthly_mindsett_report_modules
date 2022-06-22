@@ -3,6 +3,9 @@ from PIL import ImageColor
 
 import colorsys
 
+cd = {"tomato": '#FF836A',"aquablue": '#6DC2B3',"peach": '#FED6D2',"darkgrey": '#9F9D9C',"potato": '#FEF8C8',"cyan": '#B6E4E1'}
+
+
 class PDF(FPDF):
 
     def header(self):
