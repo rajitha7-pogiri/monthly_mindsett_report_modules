@@ -3,6 +3,40 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import (MultipleLocator, FormatStrFormatter, AutoMinorLocator)
 import matplotlib.ticker as ticker
+import psycopg2
+from datetime import date
+
+def import_occupancy(db, site_name, month_current=None,
+                     table_name = 'building_occupancy',
+                     selected_columns = ["date", "occupancy"]):
+    
+    # organisation can be added later
+    
+    if month_current is None:#
+        today = date.today()
+        month_current = int(today.strftime("%m")) - 1
+    
+    selected_columns_str = ", ".join(selected_columns)
+
+    s  = f"""SELECT {selected_columns_str} FROM {table_name} WHERE building='{site_name}'"""
+
+    conn = psycopg2.connect(db.CONNECTION)
+
+    data_cursor = conn.cursor()
+    data_cursor.execute(s)
+    listTables = data_cursor.fetchall()
+
+    df_occupancy = pd.DataFrame(listTables, columns=selected_columns)
+
+    df_occupancy['month']=pd.to_datetime(df_occupancy.date).dt.month
+    df_occupancy['Date']=pd.to_datetime(df_occupancy.date).dt.day
+    df_occupancy=df_occupancy.set_index("Date").sort_index()
+    df_occupancy_fixed=df_occupancy.drop(columns=['date'])
+
+    df_occupancy_cur = df_occupancy_fixed.loc[df_occupancy_fixed['month'] == month_current] # To select particular month
+    
+    return df_occupancy_cur
+
 
 def generate_day_code(df_meta_with_value):
     
