@@ -1,14 +1,14 @@
 from fpdf import FPDF
 from PIL import ImageColor
-from os import path
+import os
 from datetime import date, timedelta
 
 import colorsys
 
 cd = {"tomato": '#FF836A',"aquablue": '#6DC2B3',"peach": '#FED6D2',"darkgrey": '#9F9D9C',"potato": '#FEF8C8',"cyan": '#B6E4E1'}
 
-assets_folder = path.join(path.dirname(__file__), 'assets/report_template/')
-figures_folder = path.join(path.dirname(path.abspath(__file__)), 'figures/')
+assets_folder = os.path.join(os.path.dirname(__file__), 'assets/report_template/')
+figures_folder = os.path.join(os.getcwd(), 'figures/')
 
 class PDF(FPDF):
 
