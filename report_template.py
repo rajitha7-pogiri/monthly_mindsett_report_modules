@@ -114,24 +114,24 @@ def generate_report(site_name, statements_list=None, organisation=None, report_f
     pdf.image(figures_folder+'daily_consumption_barchart_with_occupancy_mar_with_pattern_MWh.png',71, 61, 131)
 
 
-    pdf.set_x(20)
-    pdf.set_font('Arial', 'I', 12)
-    pdf.set_text_color(0,0,0)
-    pdf.multi_cell(pdf.w - 30, 10, 'Review on Previous Points: \n')
+    # pdf.set_x(20)
+    # pdf.set_font('Arial', 'I', 12)
+    # pdf.set_text_color(0,0,0)
+    # pdf.multi_cell(pdf.w - 30, 10, 'Review on Previous Points: \n')
 
-    text_list_ac = [{'text': '- Even though AC consumption decreased by 11%, still'},
-                 {'style':'B', 'text': 'first floor AC'},
-                 {'text':'was working out of hours during first week of April (1st,2nd,4th), later in the second week it worked for four consecutive days (7th,8th,9th,10th) and also on 20th April. '}]
+    # text_list_ac = [{'text': '- Even though AC consumption decreased by 11%, still'},
+    #              {'style':'B', 'text': 'first floor AC'},
+    #              {'text':'was working out of hours during first week of April (1st,2nd,4th), later in the second week it worked for four consecutive days (7th,8th,9th,10th) and also on 20th April. '}]
 
-    #text_list_km = [{'text': '- As occupancy increased by 30% there is expected increase in'},
-                 #{'style':'B', 'text': 'car charging. '}]
+    # #text_list_km = [{'text': '- As occupancy increased by 30% there is expected increase in'},
+    #              #{'style':'B', 'text': 'car charging. '}]
 
-    text_list_im = [{'text': '- The percentage of out of hours consumption slightly decreased compared to previous month. '}]
+    # text_list_im = [{'text': '- The percentage of out of hours consumption slightly decreased compared to previous month. '}]
 
 
-    text_list  = text_list_ac + text_list_im
-    pdf.set_x(29)
-    pdf.write_multicell_with_styles(pdf.w-40,6,text_list)
+    # text_list  = text_list_ac + text_list_im
+    # pdf.set_x(29)
+    # pdf.write_multicell_with_styles(pdf.w-40,6,text_list)
 
     pdf.ln(5)
     pdf.set_x(20)
