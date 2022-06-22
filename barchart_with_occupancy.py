@@ -4,6 +4,19 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import (MultipleLocator, FormatStrFormatter, AutoMinorLocator)
 import matplotlib.ticker as ticker
 
+def generate_day_code(df_meta_with_value):
+    
+    multi_index = df_meta_with_value.groupby(["day_of_month", 'day_code']).sum().index
+
+    day_code_dict = dict(multi_index)
+
+    day_code_list = [str(item)+"\n"+day_code_dict[item] for item in day_code_dict]
+
+    day_code_list.insert(0,"")
+    day_code_list.insert(0,"")
+
+    return day_code_list
+
 def energy_and_occupancy_barchart_design(df_pivot_working_hours,
                                          day_code_list,
                                          tick_range_e,
@@ -33,6 +46,7 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
         if df_occupancy_cur is not None:
 
+            df_occupancy_cur.reset_index(drop=True, inplace=True)
             # the right y axis
             ax_r = ax_l.twinx() # instantiate a second axes that shares the same x-axis
             ax_r.set_ylabel("People Registered", labelpad=10,fontsize ='12')
@@ -83,8 +97,8 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
         ax_l.set_xticklabels(day_code_list)
         ax_l.tick_params(axis='x', which='major', pad=8)
-        top_index = df_pivot_working_hours.index.min() - 1
-        bot_index = df_pivot_working_hours.index.max() + 1
+        top_index = df_pivot_working_hours.index.min() - 2
+        bot_index = df_pivot_working_hours.index.max() + 2
         ax.set_xlim([top_index, bot_index])
         fig.tight_layout()
         if path_for_fig is not None:
