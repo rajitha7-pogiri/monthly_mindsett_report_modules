@@ -1,3 +1,4 @@
+import pickle
 from fpdf import FPDF
 from PIL import ImageColor
 import os
@@ -65,7 +66,10 @@ class PDF(FPDF):
                 self.set_x(self.get_x() + space_width)
         
 
-def generate_report(site_name, statements_list=None, organisation=None, report_file_name='Mindsett_Apr_CharterHouse_v.1.pdf'):
+def generate_report(site_name, statements_list=None, organisation=None, report_file_name='Mindsett_Energy_Report.pdf', files_folder='./files/', figures_folder='./figures/'):
+
+    with open(files_folder+'statements.pkl', 'rb') as f:
+        statements_list = pickle.load(f)
 
     pdf = PDF()
     pdf.add_page()
