@@ -116,7 +116,7 @@ def energy_report(cf):
     energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, cf.floor_sqm, industry=cf.industry)
 
 
-    generate_barchart_with_occupancy(cf.postgresdb, cf.site_name, df_meta_with_value)
+    generate_barchart_with_occupancy(cf.postgresdb, cf.site_name, df_meta_with_value, occupancy_available=cf.occupancy_available)
 
     generate_report(cf.site_name, organisation=cf.organisation)
 
