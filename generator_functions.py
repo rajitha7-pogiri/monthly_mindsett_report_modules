@@ -10,6 +10,8 @@ from .pie_chart import piechart_comparison_design
 from .energy_meter_with_benchmarking import energy_meter_with_benchmarking
 from .barchart_with_occupancy import (import_occupancy,generate_day_code,energy_and_occupancy_barchart_design)
 
+from .report_template import generate_report
+
 files_folder = os.path.join(os.getcwd(), 'files/')
 figures_folder = os.path.join(os.getcwd(), 'figures/')
 

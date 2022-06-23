@@ -371,4 +371,4 @@ def energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, flo
 
     plt.axis('off')
     if path_for_fig is not None:
-        fig.savefig(path_for_fig)
+        plt.savefig(path_for_fig, format='png', dpi=200)
