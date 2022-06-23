@@ -31,7 +31,7 @@ def generate_legend_labels_for_piechart_with_triangle(df_asset_class_monthly_sum
         label_kwh_pad = ' ' *int((kwh_len - len(label_kwh_str))*2) 
         label_kwh = label_kwh_pad + label_kwh_str
 
-        print("item[sub_pct]: ", item["sub_pct"])
+        # print("item[sub_pct]: ", item["sub_pct"])
 
         if item["sub_pct"] > 0: 
             label_arrow_str = r'${\blacktriangle}$'
