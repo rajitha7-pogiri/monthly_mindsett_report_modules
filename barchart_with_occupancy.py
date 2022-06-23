@@ -130,6 +130,10 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         ax_l.legend(loc='upper left', bbox_to_anchor=(0.025, 0.97))
 
 
+        # fixing yticks with matplotlib.ticker "FixedLocator" # debugging
+        ticks_loc = ax_l.get_xticks().tolist()
+        ax_l.xaxis.set_major_locator(ticker.FixedLocator(ticks_loc))
+
         ax_l.set_xticklabels(day_code_list)
         ax_l.tick_params(axis='x', which='major', pad=8)
         top_index = df_pivot_working_hours.index.min() - 2
