@@ -1,3 +1,4 @@
+from pathlib import Path
 from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
 
 import matplotlib.pyplot as plt
@@ -336,7 +337,7 @@ def energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, flo
                                     image_folder = assets_folder,
                                     kwh_per_sqm_good = 10.33,
                                     kwh_per_sqm_typical = 14.5,
-                                    path_for_fig = None
+                                    directory_to_savefig = './figures/'
                                   ):
 
     plt.style.use('seaborn-white')
@@ -370,5 +371,6 @@ def energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, flo
     ax.set_ylim(-1, 2)
 
     plt.axis('off')
-    if path_for_fig is not None:
-        plt.savefig(path_for_fig, format='png', dpi=200)
+    # Specify the directory to save figures, if it does not exist, create it
+    Path(directory_to_savefig).mkdir(parents=True, exist_ok=True)
+    plt.savefig(directory_to_savefig+"Monthly_total_and_bm.png", format='png', dpi=200,transparent=True, bbox_inches='tight', pad_inches=0)
