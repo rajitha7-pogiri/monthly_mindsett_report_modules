@@ -49,6 +49,7 @@ def generate_day_code(df_meta_with_value):
     day_code_list.insert(0,"")
     day_code_list.insert(0,"")
     day_code_list.insert(0,"")
+    day_code_list.append("")
 
     return day_code_list
 
