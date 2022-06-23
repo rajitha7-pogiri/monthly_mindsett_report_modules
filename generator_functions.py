@@ -92,3 +92,5 @@ def generate_barchart_with_occupancy(db_occupancy, site_name, df_meta_with_value
     # Specify the directory to save figures, if it does not exist, create it
     Path(directory_to_savefig).mkdir(parents=True, exist_ok=True)
     plt.savefig(directory_to_savefig+"daily_consumption_barchart_with_occupancy_mar_with_pattern_MWh.png",format='png', dpi=200)
+
+
