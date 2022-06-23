@@ -2,7 +2,7 @@ from pathlib import Path
 import pickle
 import os
 
-from processing_functions import (statement_for_biggest_ooh, preprocessing_for_statement, statement_for_total_ooh)
+from .processing_functions import (statement_for_biggest_ooh, preprocessing_for_statement, statement_for_total_ooh)
 
 files_folder = os.path.join(os.getcwd(), 'files/')
 
