@@ -120,10 +120,10 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
 
         # bottom bar inner part
-        ax_l.bar(df_pivot_working_hours.index+0.05, df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar,
+        ax_l.bar(df_pivot_working_hours.index+0.02, df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar,
                  width=0.4, lw=0, color= hours_colors[bot_hours], edgecolor=bar_edgecolour[1])
         # top bar inner part
-        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours].fillna(0),
+        ax_l.bar(df_pivot_working_hours.index+0.02, df_pivot_working_hours[top_hours].fillna(0),
                  width=0.4, lw=0, color= hours_colors[top_hours],
                  edgecolor=bar_edgecolour[1], bottom=df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar)
         # black bar for separation
@@ -131,7 +131,7 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
                  width=0.4, lw=1, edgecolor=bar_edgecolour[0], color= bar_fillcolour[0],
                  bottom=df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar)
         # white bar at the bottom
-        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours]*0+white_padding_below_bar,
+        ax_l.bar(df_pivot_working_hours.index+0.02, df_pivot_working_hours[top_hours]*0+white_padding_below_bar,
                  width=0.4, lw=0, edgecolor=bar_edgecolour[1], color= bar_fillcolour[1])
 
         ax_l.xaxis.set_major_locator(ticker.MultipleLocator(1))
