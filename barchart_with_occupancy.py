@@ -120,7 +120,7 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
 
         # bottom bar inner part
-        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar,
+        ax_l.bar(df_pivot_working_hours.index+0.05, df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar,
                  width=0.4, lw=0, color= hours_colors[bot_hours], edgecolor=bar_edgecolour[1])
         # top bar inner part
         ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours].fillna(0),
