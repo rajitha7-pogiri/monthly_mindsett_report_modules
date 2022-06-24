@@ -69,7 +69,8 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         if tick_range_e is None:
             tick_range_e = df_pivot_working_hours.sum(axis=1).max()*1.4
 
-        white_padding_below_bar = tick_range_e/70
+        white_padding_below_bar = tick_range_e/100
+        white_padding_below_bar_for_legend = white_padding_below_bar/3
 
         df_pivot_working_hours.reset_index(drop=True, inplace=True)
 
@@ -106,13 +107,13 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
 
         # bottom bar legend label
-        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[bot_hours].fillna(0)-2/1000,
+        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar_for_legend,
                  width=0.5, lw=1.2, color=hours_colors[bot_hours],
                  edgecolor=bar_edgecolour[0], label=hours_labels[bot_hours])
         # top bar legend label
         ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours].fillna(0),
                  width=0.5, lw=1.2, color=hours_colors[top_hours],
-                 edgecolor=bar_edgecolour[0], bottom=df_pivot_working_hours[bot_hours].fillna(0)-2/1000, label=hours_labels[top_hours])
+                 edgecolor=bar_edgecolour[0], bottom=df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar_for_legend, label=hours_labels[top_hours])
         # edge of bar
         ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours].fillna(0)+df_pivot_working_hours[bot_hours].fillna(0),
                  width=0.7, lw=1.3, edgecolor=bar_edgecolour[0], color=bar_fillcolour[1])
