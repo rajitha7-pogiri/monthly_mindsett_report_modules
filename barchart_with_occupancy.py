@@ -98,6 +98,10 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
             ax_r.plot(df_occupancy_cur['occupancy'], color= 'k', lw=0.6, ls='dashed', marker=".", ms=6, mec="k", label='Occupancy')
             ax_r.legend(loc='upper right', bbox_to_anchor=(0.97, 0.98))
 
+            tight_layout_rect=(0, 0,   1, 1)
+        else:
+            tight_layout_rect=(0, 0, 0.6, 1)
+
         bot_hours = not top_hours
 
         hours_labels = {True: "Out Of Hours", False: "In Hours"}
@@ -148,7 +152,8 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         top_index = df_pivot_working_hours.index.min() - 2
         bot_index = df_pivot_working_hours.index.max() + 2
         ax.set_xlim([top_index, bot_index])
-        print("get_tightbbox: ", fig.get_tightbbox())
-        fig.tight_layout()
+        
+        fig.tight_layout(rect=tight_layout_rect)
+        
         if path_for_fig is not None:
             fig.savefig(path_for_fig)
