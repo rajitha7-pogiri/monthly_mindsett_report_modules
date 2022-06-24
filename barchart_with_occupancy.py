@@ -100,7 +100,7 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
             tight_layout_rect=(0, 0,   1, 1)
         else:
-            tight_layout_rect=(0, 0, 0.6, 1)
+            tight_layout_rect=(0, 0, 0.9, 1)
 
         bot_hours = not top_hours
 
@@ -154,6 +154,6 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         ax.set_xlim([top_index, bot_index])
         
         fig.tight_layout(rect=tight_layout_rect)
-        
+
         if path_for_fig is not None:
             fig.savefig(path_for_fig)
