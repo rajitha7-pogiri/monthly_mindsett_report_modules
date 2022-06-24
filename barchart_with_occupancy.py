@@ -48,9 +48,9 @@ def generate_day_code(df_meta_with_value):
 
     day_code_list.insert(0,"")
     day_code_list.insert(0,"")
-    day_code_list.insert(0,"")
-    # day_code_list.append("")
-    # day_code_list.append("")
+    # day_code_list.insert(0,"")
+    day_code_list.append("")
+    day_code_list.append("")
 
     return day_code_list
 
@@ -133,8 +133,8 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
 
         # fixing yticks with matplotlib.ticker "FixedLocator" # debugging
-        # ticks_loc = ax_l.get_xticks().tolist()
-        # ax_l.xaxis.set_major_locator(ticker.FixedLocator(ticks_loc))
+        ticks_loc = ax_l.get_xticks().tolist()
+        ax_l.xaxis.set_major_locator(ticker.FixedLocator(ticks_loc))
 
         ax_l.set_xticklabels(day_code_list)
         ax_l.tick_params(axis='x', which='major', pad=8)
