@@ -56,7 +56,7 @@ def generate_day_code(df_meta_with_value):
 
 def energy_and_occupancy_barchart_design(df_pivot_working_hours,
                                          day_code_list,
-                                         tick_range_e,
+                                         tick_range_e=None,
                                          fs = (8, 3.5), # (8, 3.5) -- Charter house and academy
                                          top_hours = True, # False: in-hours, True: out-of-hours
                                          bar_color = '#6DC2B3',
@@ -65,7 +65,11 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
                                          df_occupancy_cur= None):
 
         df_pivot_working_hours[False].fillna(0)
-        # df_pivot_working_hours[True].fillna(0)
+        
+        if tick_range_e is None:
+            tick_range_e = df_pivot_working_hours.sum(axis=1).max()*1.4
+
+        white_padding_below_bar = tick_range_e/70
 
         df_pivot_working_hours.reset_index(drop=True, inplace=True)
 
@@ -81,13 +85,12 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         ax_l.set_yticks(np.arange(0, tick_range_e, 0.1))
         ax_l.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
 
-        # the right y axis
-        ax_r = ax_l.twinx() # instantiate a second axes that shares the same x-axis
-
         if df_occupancy_cur is not None:
-            
+
             df_occupancy_cur.reset_index(drop=True, inplace=True)
 
+            # the right y axis
+            ax_r = ax_l.twinx() # instantiate a second axes that shares the same x-axis
             ax_r.set_ylabel("People Registered", labelpad=10, fontsize ='12')
             ax_r.set_ylim(tick_range_o)
             ax_r.plot(df_occupancy_cur['occupancy'], color= 'k', lw=0.6, ls='dashed', marker=".", ms=6, mec="k", label='Occupancy')
@@ -116,18 +119,18 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
 
         # bottom bar inner part
-        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[bot_hours].fillna(0)-7/1000,
+        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar,
                  width=0.4, lw=0, color= hours_colors[bot_hours], edgecolor=bar_edgecolour[1])
         # top bar inner part
         ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours].fillna(0),
                  width=0.4, lw=0, color= hours_colors[top_hours],
-                 edgecolor=bar_edgecolour[1], bottom=df_pivot_working_hours[bot_hours].fillna(0)-7/1000)
+                 edgecolor=bar_edgecolour[1], bottom=df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar)
         # black bar for separation
         ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours]*0,
                  width=0.4, lw=1, edgecolor=bar_edgecolour[0], color= bar_fillcolour[0],
-                 bottom=df_pivot_working_hours[bot_hours].fillna(0)-7/1000)
+                 bottom=df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar)
         # white bar at the bottom
-        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours]*0+0.007,
+        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours]*0+white_padding_below_bar,
                  width=0.4, lw=0, edgecolor=bar_edgecolour[1], color= bar_fillcolour[1])
 
         ax_l.xaxis.set_major_locator(ticker.MultipleLocator(1))
