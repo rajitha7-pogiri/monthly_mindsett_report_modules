@@ -48,24 +48,30 @@ def generate_day_code(df_meta_with_value):
 
     day_code_list.insert(0,"")
     day_code_list.insert(0,"")
-    day_code_list.insert(0,"")
-    # day_code_list.append("")
-    # day_code_list.append("")
+    # day_code_list.insert(0,"")
+    day_code_list.append("")
+    day_code_list.append("")
 
     return day_code_list
 
 def energy_and_occupancy_barchart_design(df_pivot_working_hours,
                                          day_code_list,
-                                         tick_range_e,
-                                         fs = (8, 3.5), #(8, 3.5) -- Charter house and academy
+                                         tick_range_e=None,
+                                         fs = (8, 3.5), # (8, 3.5) -- Charter house and academy
                                          top_hours = True, # False: in-hours, True: out-of-hours
                                          bar_color = '#6DC2B3',
+                                         bar_padding_adjustment = 0.01, # used when the paddings on the left/right are different
                                          path_for_fig = None,
                                          tick_range_o= None,
                                          df_occupancy_cur= None):
 
         df_pivot_working_hours[False].fillna(0)
-        # df_pivot_working_hours[True].fillna(0)
+        
+        if tick_range_e is None:
+            tick_range_e = df_pivot_working_hours.sum(axis=1).max()*1.4
+
+        white_padding_below_bar = tick_range_e/100
+        white_padding_below_bar_for_legend = white_padding_below_bar/3
 
         df_pivot_working_hours.reset_index(drop=True, inplace=True)
 
@@ -84,12 +90,17 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         if df_occupancy_cur is not None:
 
             df_occupancy_cur.reset_index(drop=True, inplace=True)
+
             # the right y axis
             ax_r = ax_l.twinx() # instantiate a second axes that shares the same x-axis
-            ax_r.set_ylabel("People Registered", labelpad=10,fontsize ='12')
+            ax_r.set_ylabel("People Registered", labelpad=10, fontsize ='12')
             ax_r.set_ylim(tick_range_o)
-            ax_r.plot(df_occupancy_cur['occupancy'], color= 'k', lw=0.6, ls='dashed',marker=".",ms=6, mec="k",label='Occupancy')
+            ax_r.plot(df_occupancy_cur['occupancy'], color= 'k', lw=0.6, ls='dashed', marker=".", ms=6, mec="k", label='Occupancy')
             ax_r.legend(loc='upper right', bbox_to_anchor=(0.97, 0.98))
+
+            tight_layout_rect=(0, 0,   1, 1)
+        else:
+            tight_layout_rect=(0, 0, 0.93, 1)
 
         bot_hours = not top_hours
 
@@ -101,46 +112,48 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
 
         # bottom bar legend label
-        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[bot_hours].fillna(0)-2/1000,
+        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar_for_legend,
                  width=0.5, lw=1.2, color=hours_colors[bot_hours],
                  edgecolor=bar_edgecolour[0], label=hours_labels[bot_hours])
         # top bar legend label
         ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours].fillna(0),
                  width=0.5, lw=1.2, color=hours_colors[top_hours],
-                 edgecolor=bar_edgecolour[0], bottom=df_pivot_working_hours[bot_hours].fillna(0)-2/1000, label=hours_labels[top_hours])
+                 edgecolor=bar_edgecolour[0], bottom=df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar_for_legend, label=hours_labels[top_hours])
         # edge of bar
         ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours].fillna(0)+df_pivot_working_hours[bot_hours].fillna(0),
                  width=0.7, lw=1.3, edgecolor=bar_edgecolour[0], color=bar_fillcolour[1])
 
 
         # bottom bar inner part
-        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[bot_hours].fillna(0)-7/1000,
+        ax_l.bar(df_pivot_working_hours.index+bar_padding_adjustment, df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar,
                  width=0.4, lw=0, color= hours_colors[bot_hours], edgecolor=bar_edgecolour[1])
         # top bar inner part
-        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours].fillna(0),
+        ax_l.bar(df_pivot_working_hours.index+bar_padding_adjustment, df_pivot_working_hours[top_hours].fillna(0),
                  width=0.4, lw=0, color= hours_colors[top_hours],
-                 edgecolor=bar_edgecolour[1], bottom=df_pivot_working_hours[bot_hours].fillna(0)-7/1000)
+                 edgecolor=bar_edgecolour[1], bottom=df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar)
         # black bar for separation
-        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours]*0,
+        ax_l.bar(df_pivot_working_hours.index+bar_padding_adjustment, df_pivot_working_hours[top_hours]*0,
                  width=0.4, lw=1, edgecolor=bar_edgecolour[0], color= bar_fillcolour[0],
-                 bottom=df_pivot_working_hours[bot_hours].fillna(0)-7/1000)
+                 bottom=df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar)
         # white bar at the bottom
-        ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[top_hours]*0+0.007,
+        ax_l.bar(df_pivot_working_hours.index+bar_padding_adjustment, df_pivot_working_hours[top_hours]*0+white_padding_below_bar,
                  width=0.4, lw=0, edgecolor=bar_edgecolour[1], color= bar_fillcolour[1])
 
         ax_l.xaxis.set_major_locator(ticker.MultipleLocator(1))
         ax_l.legend(loc='upper left', bbox_to_anchor=(0.025, 0.97))
 
 
-        # fixing yticks with matplotlib.ticker "FixedLocator" # debugging
-        # ticks_loc = ax_l.get_xticks().tolist()
-        # ax_l.xaxis.set_major_locator(ticker.FixedLocator(ticks_loc))
+        # fixing yticks with matplotlib.ticker "FixedLocator"
+        ticks_loc = ax_l.get_xticks().tolist()
+        ax_l.xaxis.set_major_locator(ticker.FixedLocator(ticks_loc))
 
         ax_l.set_xticklabels(day_code_list)
         ax_l.tick_params(axis='x', which='major', pad=8)
         top_index = df_pivot_working_hours.index.min() - 2
         bot_index = df_pivot_working_hours.index.max() + 2
         ax.set_xlim([top_index, bot_index])
-        fig.tight_layout()
+        
+        fig.tight_layout(rect=tight_layout_rect)
+
         if path_for_fig is not None:
             fig.savefig(path_for_fig)

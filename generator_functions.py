@@ -75,10 +75,6 @@ def generate_barchart_with_occupancy(db_occupancy, site_name, df_meta_with_value
     day_code_list = generate_day_code(df_meta_with_value_for_barchart)
 
     # barchart with occupancy
-
-    if tick_range_e is None:
-        
-        tick_range_e = df_pivot_working_hours.sum(axis=1).max()*1.4
     
     energy_and_occupancy_barchart_design(df_pivot_working_hours,
                                              day_code_list,

@@ -81,7 +81,7 @@ def piechart_comparison_design(df_asset_class_monthly_sum_others, ncol,loc,
         )
     ax.set_ylabel("")
 
-    my_circle = plt.Circle((0, 0), .5, color=other_colours[1], edgecolor=other_colours[0], linewidth=4)
+    my_circle = plt.Circle((0, 0), .5, color=other_colours[1], linewidth=4) # edgecolor=other_colours[0], 
     p = plt.gcf()
     p.gca().add_artist(my_circle)
 
