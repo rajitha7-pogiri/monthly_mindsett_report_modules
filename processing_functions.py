@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 import pandas as pd
 from sqlalchemy import create_engine
 
@@ -70,6 +70,33 @@ def statement_for_total_ooh(df_asset_group_monthly_sum_others, row_index_for_tot
     else:   
         statement = f"""The out-of-hour use had been similar to previous period."""
         
+    return statement
+
+def statement_for_avg_action_time(db, site_name, asset_name, start_time, end_time,
+                                  action = 1):
+
+    engine = create_engine(db.ENGINE)
+
+    conn = engine.connect().execution_options(stream_results=True)
+
+    time_restriction = f"""(time >= '{start_time}') and (time < '{end_time}')"""
+
+    statement_list = [f""""site_name"='{site_name}'"""]
+    statement_full = " and ".join(statement_list)
+
+    df_on_off = pd.read_sql_query(f"""select * from {db.table_name_on_off} where {statement_full} and {time_restriction};""",
+                                        con=conn)
+
+    df_on_off = enriching_time_features(df_on_off)
+
+    df_on_off_avg = df_on_off.groupby(['action', 'circuit_description']).time_of_day_in_float.mean()
+
+    avg_start_time = str(timedelta(hours=df_on_off_avg[action][asset_name])).split('.')[0][:-3]
+    
+    start_finish_dict = {1: 'start', -1: 'finish'}
+
+    statement = f"The average {start_finish_dict[action]} time for {asset_name} was {avg_start_time} over this period."
+    
     return statement
 
 def preprocessing_for_statement(df_meta_with_value, 

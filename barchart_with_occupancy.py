@@ -100,7 +100,7 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
             tight_layout_rect=(0, 0,   1, 1)
         else:
-            tight_layout_rect=(0, 0, 0.93, 1)
+            tight_layout_rect=(0, 0, 0.93, 1) # intentionally add some padding on the right hand side 
 
         bot_hours = not top_hours
 
