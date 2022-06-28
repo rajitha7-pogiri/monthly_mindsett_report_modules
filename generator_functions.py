@@ -26,6 +26,9 @@ def generate_insight_statements(df_meta_with_value, directory_to_savefile='./fil
     statement_str_biggest_ooh = statement_for_biggest_ooh(df_for_statements)
     statements_list.append(statement_str_biggest_ooh)
 
+    statement_str_avg_action_time = statement_for_avg_action_time(db, site_name, asset_name, start_time, end_time,
+                                  action = 1)
+
     # Specify the directory to save figures, if it does not exist, create it
     Path(directory_to_savefile).mkdir(parents=True, exist_ok=True)
 
