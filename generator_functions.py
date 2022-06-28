@@ -31,18 +31,18 @@ def generate_insight_statements(db, df_meta_with_value,
 
     # preparation for the third statement
 
-    asset_name = 'Lights Toilets'
+    asset_name = 'Pizza Oven'
 
-    # if asset_name in df_meta_with_value.circuit_description.unique():
+    if asset_name in df_meta_with_value.circuit_description.unique():
 
-    site_name = df_meta_with_value.site_name.unique()[0]
-    max_period = df_meta_with_value.index.tz_convert(None).to_period('M').unique().max()
-    start_time_str = max_period.start_time
-    end_time_str = max_period.end_time
+        site_name = df_meta_with_value.site_name.unique()[0]
+        max_period = df_meta_with_value.index.tz_convert(None).to_period('M').unique().max()
+        start_time_str = max_period.start_time
+        end_time_str = max_period.end_time
 
-    statement_str_avg_action_time = statement_for_avg_action_time(db, site_name, asset_name, start_time_str, end_time_str,
+        statement_str_avg_action_time = statement_for_avg_action_time(db, site_name, asset_name, start_time_str, end_time_str,
                                   action=1)
-    statements_list.append(statement_str_avg_action_time)
+        statements_list.append(statement_str_avg_action_time)
 
     # Specify the directory to save figures, if it does not exist, create it
     Path(directory_to_savefile).mkdir(parents=True, exist_ok=True)
