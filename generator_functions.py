@@ -5,7 +5,7 @@ import os
 import matplotlib.pyplot as plt
 from datetime import date
 
-from .processing_functions import (statement_for_biggest_ooh, preprocessing_for_statement, statement_for_total_ooh, preprocessing_for_piechart,preprocessing_for_barchart,import_data_with_meta,enriching_time_features)
+from .processing_functions import (statement_for_biggest_ooh, preprocessing_for_statement, statement_for_avg_action_time, statement_for_total_ooh, preprocessing_for_piechart,preprocessing_for_barchart,import_data_with_meta,enriching_time_features)
 from .pie_chart import piechart_comparison_design
 from .energy_meter_with_benchmarking import energy_meter_with_benchmarking
 from .barchart_with_occupancy import (import_occupancy,generate_day_code,energy_and_occupancy_barchart_design)
@@ -14,9 +14,12 @@ from .report_template import generate_report
 files_folder = os.path.join(os.getcwd(), 'files/')
 figures_folder = os.path.join(os.getcwd(), 'figures/')
 
-def generate_insight_statements(df_meta_with_value, directory_to_savefile='./files/'): # todo: update the default value for directory
+def generate_insight_statements(db, df_meta_with_value, 
+                                month_current=None,
+                                month_step=1, 
+                                directory_to_savefile='./files/'): # todo: update the default value for directory
 
-    df_for_statements = preprocessing_for_statement(df_meta_with_value)
+    df_for_statements = preprocessing_for_statement(df_meta_with_value,  month_current=month_current, month_step=month_step)
 
     statements_list = []
 
@@ -26,8 +29,20 @@ def generate_insight_statements(df_meta_with_value, directory_to_savefile='./fil
     statement_str_biggest_ooh = statement_for_biggest_ooh(df_for_statements)
     statements_list.append(statement_str_biggest_ooh)
 
-    statement_str_avg_action_time = statement_for_avg_action_time(db, site_name, asset_name, start_time, end_time,
-                                  action = 1)
+    # preparation for the third statement
+
+    asset_name = 'Lights Toilets'
+
+    # if asset_name in df_meta_with_value.circuit_description.unique():
+
+    site_name = df_meta_with_value.site_name.unique()[0]
+    max_period = df_meta_with_value.index.tz_convert(None).to_period('M').unique().max()
+    start_time_str = max_period.start_time
+    end_time_str = max_period.end_time
+
+    statement_str_avg_action_time = statement_for_avg_action_time(db, site_name, asset_name, start_time_str, end_time_str,
+                                  action=1)
+    statements_list.append(statement_str_avg_action_time)
 
     # Specify the directory to save figures, if it does not exist, create it
     Path(directory_to_savefile).mkdir(parents=True, exist_ok=True)
