@@ -34,7 +34,7 @@ def enriching_time_features(df_meta_with_value, weekend=5, working_end_time="18:
     df_meta_with_value["day_name"] = df_meta_with_value.index.day_name()
     df_meta_with_value["day_code"] = df_meta_with_value["day_name"].str[0]
     df_meta_with_value["month"] = df_meta_with_value.index.month
-
+    df_meta_with_value["month_name"] = df_meta_with_value.index.month_name() #new change/implementation -RP
     df_meta_with_value["out_of_hours"] = df_meta_with_value['weekday'].ge(weekend) | \
                                             (df_meta_with_value["time_of_day"] > pd.to_datetime(working_end_time).time()) | \
                                             (df_meta_with_value["time_of_day"] < pd.to_datetime(working_start_time).time())
