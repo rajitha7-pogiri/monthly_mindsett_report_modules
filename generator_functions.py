@@ -138,7 +138,7 @@ def energy_report(cf):
     df_meta_with_value_building = query_building_total(cf.postgresdb,start_time = cf.start_time_co2_barchart,end_time = cf.end_time, building_name = cf.site_name)
     df_meta_with_value_building = enriching_time_features(df_meta_with_value_building)
 
-    generate_insight_statements(df_meta_with_value)
+    generate_insight_statements(cf.postgresdb,df_meta_with_value)
 
     # todo: the value should be obtained from the mains directly
 
