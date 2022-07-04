@@ -8,7 +8,7 @@ from datetime import date
 from .processing_functions import (statement_for_biggest_ooh, preprocessing_for_statement, 
                                     statement_for_avg_action_time, statement_for_total_ooh, 
                                     preprocessing_for_piechart,preprocessing_for_barchart,
-                                    import_data_with_meta,enriching_time_features,preprocessing_for_co2_barchart)
+                                    import_data_with_meta,enriching_time_features,preprocessing_for_co2_barchart,query_building_total)
 
 from .pie_chart import piechart_comparison_design
 from .energy_meter_with_benchmarking import energy_meter_with_benchmarking
@@ -134,6 +134,9 @@ def energy_report(cf):
                                                     weekend=cf.weekend, 
                                                     working_end_time=cf.working_end_time, 
                                                     working_start_time=cf.working_start_time)
+                                                
+    df_meta_with_value_building = query_building_total(cf.postgresdb,start_time = cf.start_time_co2_barchart,end_time = cf.end_time, building_name = cf.site_name)
+    df_meta_with_value_building = enriching_time_features(df_meta_with_value_building)
 
     generate_insight_statements(df_meta_with_value)
 
@@ -145,6 +148,10 @@ def energy_report(cf):
 
 
     generate_barchart_with_occupancy(cf.postgresdb, cf.site_name, df_meta_with_value, occupancy_available=cf.occupancy_available)
+
+
+
+    generate_co2_barchart(df_meta_with_value_building)
 
     generate_report(cf.site_name, organisation=cf.organisation)
 
