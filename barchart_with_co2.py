@@ -107,7 +107,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         
         
         #C02 insertion
-        co2_design(df_grouped_working_hours_period_reset_index.sort_index())
+        co2_design(df_grouped_working_hours_period_reset_index)
 
 
         ax_l.legend(loc='upper left', bbox_to_anchor=(-0,1.02,1,0.2),fontsize=9,ncol=2)
