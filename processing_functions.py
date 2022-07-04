@@ -126,6 +126,9 @@ def preprocessing_for_statement(df_meta_with_value,
          
     month_tobe_compared = (month_current - month_step)
 
+    print('month_current:',month_current)
+    print('df_pivot_asset_group_by_month:',df_pivot_asset_group_by_month)
+
     df_pivot_asset_group_by_month_renamed = df_pivot_asset_group_by_month.loc[:,month_current].to_frame().rename(columns={month_current: "sum"})
     df_pivot_asset_group_by_month_renamed["sum_pre"] = df_pivot_asset_group_by_month.loc[:,month_tobe_compared]
 
