@@ -97,7 +97,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         ticks_loc = ax_l.get_xticks().tolist()
         ax_l.xaxis.set_major_locator(ticker.FixedLocator(ticks_loc))
 
-        print(ax.get_xticks())
+        
         ax.set_xticklabels(x_ticks_labels,fontsize ='10')
         plt.xticks(rotation=45)
         ax.tick_params(axis='both', which='major', pad=8, length=5, labelsize="10")
