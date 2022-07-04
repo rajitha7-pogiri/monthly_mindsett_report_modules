@@ -5,10 +5,15 @@ import os
 import matplotlib.pyplot as plt
 from datetime import date
 
-from .processing_functions import (statement_for_biggest_ooh, preprocessing_for_statement, statement_for_avg_action_time, statement_for_total_ooh, preprocessing_for_piechart,preprocessing_for_barchart,import_data_with_meta,enriching_time_features)
+from .processing_functions import (statement_for_biggest_ooh, preprocessing_for_statement, 
+                                    statement_for_avg_action_time, statement_for_total_ooh, 
+                                    preprocessing_for_piechart,preprocessing_for_barchart,
+                                    import_data_with_meta,enriching_time_features,preprocessing_for_co2_barchart)
+
 from .pie_chart import piechart_comparison_design
 from .energy_meter_with_benchmarking import energy_meter_with_benchmarking
 from .barchart_with_occupancy import (import_occupancy,generate_day_code,energy_and_occupancy_barchart_design)
+from .barchart_with_co2 import co2_barchart_design
 from .report_template import generate_report
 
 files_folder = os.path.join(os.getcwd(), 'files/')
@@ -105,6 +110,15 @@ def generate_barchart_with_occupancy(db_occupancy, site_name, df_meta_with_value
     # Specify the directory to save figures, if it does not exist, create it
     Path(directory_to_savefig).mkdir(parents=True, exist_ok=True)
     plt.savefig(directory_to_savefig+"daily_consumption_barchart_with_occupancy_mar_with_pattern_MWh.png",format='png', dpi=200)
+
+
+def generate_co2_barchart(df_meta_with_value_building,
+                          directory_to_savefig='./figures/'):
+    df_grouped_working_hours_period_unstacked= preprocessing_for_co2_barchart(df_meta_with_value_building)
+    co2_barchart_design(df_grouped_working_hours_period_unstacked)
+    Path(directory_to_savefig).mkdir(parents=True, exist_ok=True)
+    plt.savefig(directory_to_savefig+"Total_consumption_barchart_with_co2_MWh.png",format='png', dpi=200)
+
 
 
 def energy_report(cf):
