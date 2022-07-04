@@ -3,9 +3,11 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 from .db_read_query import  db_read_query
+from .query_building_total import query_building_total
 
 from .preprocessing_for_piechart import preprocessing_for_piechart, get_group_with_others
 from .preprocessing_for_barchart import preprocessing_for_barchart
+from .preprocessing_for_co2_barchart import preprocessing_for_co2_barchart 
 
 def resample_by_channels(df_source, reading_interval_in_mins=10):
     
