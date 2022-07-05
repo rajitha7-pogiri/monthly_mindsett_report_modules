@@ -5,7 +5,7 @@ import os
 import matplotlib.pyplot as plt
 from datetime import date
 
-from preprocessing_for_energy_meter_with_benchmarking import preprocessing_for_energy_meter_with_benchmarking
+from .preprocessing_for_energy_meter_with_benchmarking import preprocessing_for_energy_meter_with_benchmarking
 
 from .processing_functions import (statement_for_biggest_ooh, preprocessing_for_statement, 
                                     statement_for_avg_action_time, statement_for_total_ooh, 
@@ -167,8 +167,6 @@ def energy_report(cf):
     consumption_mwh_cur, consumption_mwh_pre = generate_piechart(df_meta_with_value, cf.asset_group)
     
     generate_energy_meter_with_benchmarking(df_meta_with_value_building, cf.floor_sqm, industry=cf.industry, period_freq=cf.period_freq)
-    
-    
 
     generate_barchart_with_occupancy(cf.postgresdb, cf.site_name, df_meta_with_value, occupancy_available=cf.occupancy_available)
 
