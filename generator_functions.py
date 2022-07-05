@@ -22,6 +22,8 @@ from .pie_chart import piechart_comparison_design
 from .energy_meter_with_benchmarking import energy_meter_with_benchmarking
 from .barchart_with_occupancy import (import_occupancy,generate_day_code,energy_and_occupancy_barchart_design)
 from .barchart_with_co2 import co2_barchart_design
+from .insight_statements import insight_statements
+
 from .report_template import generate_report
 
 files_folder = os.path.join(os.getcwd(), 'files/')
@@ -34,28 +36,7 @@ def generate_insight_statements(db, df_meta_with_value,
 
     df_for_statements = preprocessing_for_statement(df_meta_with_value,  month_current=month_current, month_step=month_step)
 
-    statements_list = []
-
-    statement_str_total_ooh = statement_for_total_ooh(df_for_statements)
-    statements_list.append(statement_str_total_ooh)
-
-    statement_str_biggest_ooh = statement_for_biggest_ooh(df_for_statements)
-    statements_list.append(statement_str_biggest_ooh)
-
-    # preparation for the third statement
-
-    asset_name = 'Pizza Oven'
-
-    if asset_name in df_meta_with_value.circuit_description.unique():
-
-        site_name = df_meta_with_value.site_name.unique()[0]
-        max_period = df_meta_with_value.index.tz_convert(None).to_period('M').unique().max()
-        start_time_str = max_period.start_time
-        end_time_str = max_period.end_time
-
-        statement_str_avg_action_time = statement_for_avg_action_time(db, site_name, asset_name, start_time_str, end_time_str,
-                                  action=1)
-        statements_list.append(statement_str_avg_action_time)
+    statements_list = insight_statements(db,df_for_statements,df_meta_with_value)
 
     # Specify the directory to save figures, if it does not exist, create it
     Path(directory_to_savefile).mkdir(parents=True, exist_ok=True)
