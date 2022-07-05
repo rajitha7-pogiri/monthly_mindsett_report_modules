@@ -110,7 +110,7 @@ def generate_report(site_name, statements_list=None, organisation=None, report_f
     pdf.image(figures_folder+'consumption_by_assetclass_piechart_mindsett.png', 16, 55+69, 144)
     pdf.image(figures_folder+'Total_consumption_barchart_with_Co2.png', 142, 55+72, 57)
 
-    pdf.image(figures_folder+'Monthly_total_and_bm.png', 14.5, 48+9, 65-7)
+    pdf.image(figures_folder+'Monthly_total_and_bm_latest.png', 14.5, 48+9, 65-7)
 
 
     pdf.ln(151) #Contol on paragraphs 
