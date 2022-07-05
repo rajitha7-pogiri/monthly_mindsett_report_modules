@@ -9,7 +9,10 @@ from .preprocessing_functions import preprocessing_for_piechart
 from .preprocessing_functions import preprocessing_for_barchart
 from .preprocessing_functions import preprocessing_for_co2_barchart 
 from .preprocessing_functions import preprocessing_for_energy_meter_with_benchmarking
-from .preprocessing_functions import preprocessing_for_statement
+from .preprocessing_functions import (preprocessing_for_statement,
+                                    statement_for_avg_action_time,
+                                    statement_for_biggest_ooh,
+                                    statement_for_total_ooh)
 
 def resample_by_channels(df_source, reading_interval_in_mins=10):
     
