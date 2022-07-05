@@ -5,6 +5,8 @@ import os
 import matplotlib.pyplot as plt
 from datetime import date
 
+from preprocessing_for_energy_meter_with_benchmarking import preprocessing_for_energy_meter_with_benchmarking
+
 from .processing_functions import (statement_for_biggest_ooh, preprocessing_for_statement, 
                                     statement_for_avg_action_time, statement_for_total_ooh, 
                                     preprocessing_for_piechart,preprocessing_for_barchart,
@@ -120,6 +122,14 @@ def generate_co2_barchart(df_meta_with_value_building,
     plt.savefig(directory_to_savefig+"Total_consumption_barchart_with_Co2.png",format='png', dpi=200)
 
 
+def generate_energy_meter_with_benchmarking(df_meta_with_value_building,
+                                            directory_to_savefig='./figures/'):
+    consumption_mwh_cur, consumption_mwh_pre= preprocessing_for_energy_meter_with_benchmarking(df_meta_with_value_building)
+    energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre)
+    Path(directory_to_savefig).mkdir(parents=True, exist_ok=True)
+    plt.savefig(directory_to_savefig+"Monthly_total_and_bm_latest.png",format='png', dpi=200)
+
+
 
 def energy_report(cf):
     
@@ -142,10 +152,10 @@ def energy_report(cf):
 
     # todo: the value should be obtained from the mains directly
 
-    consumption_mwh_cur, consumption_mwh_pre = generate_piechart(df_meta_with_value, cf.asset_group)
-
-    energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, cf.floor_sqm, industry=cf.industry)
-
+    #consumption_mwh_cur, consumption_mwh_pre = generate_piechart(df_meta_with_value, cf.asset_group)
+    consumption_mwh_cur, consumption_mwh_pre = generate_energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre)
+    #energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, cf.floor_sqm, industry=cf.industry)
+    generate_energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, cf.floor_sqm, industry=cf.industry)
 
     generate_barchart_with_occupancy(cf.postgresdb, cf.site_name, df_meta_with_value, occupancy_available=cf.occupancy_available)
 
