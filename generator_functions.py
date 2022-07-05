@@ -7,10 +7,7 @@ from datetime import date
 
 from monthly_mindsett_report_modules.utility_functions import enriching_time_features
 
-from .processing_functions import ( statement_for_biggest_ooh, 
-                                    statement_for_avg_action_time, 
-                                    statement_for_total_ooh, 
-                                    import_data_with_meta,
+from .processing_functions import ( import_data_with_meta,
                                     query_building_total,
                                     preprocessing_for_co2_barchart,
                                     preprocessing_for_piechart,
