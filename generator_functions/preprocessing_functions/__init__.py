@@ -1,4 +1,4 @@
-from .. import utility_functions
+
 
 from .preprocessing_for_barchart import preprocessing_for_barchart
 from .preprocessing_for_co2_barchart import preprocessing_for_co2_barchart

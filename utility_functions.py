@@ -1,6 +1,14 @@
 
 import pandas as pd
 
+
+
+def get_group_with_others(row, asset_group):
+    if row["gt_4pct"]:
+        return row[asset_group]
+    else:
+        return "Others"
+
 def enriching_time_features(df_meta_with_value, weekend=5, working_end_time="18:00:00", working_start_time="08:00:00"):
     
     # manipulate and clean the data

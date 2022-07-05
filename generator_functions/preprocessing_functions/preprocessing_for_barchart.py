@@ -1,4 +1,4 @@
-from datetime import date
+
 
 def preprocessing_for_barchart(df_meta_with_value, reading_interval_in_mins=10):
     
