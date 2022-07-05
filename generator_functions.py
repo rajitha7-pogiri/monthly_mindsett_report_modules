@@ -69,11 +69,6 @@ def generate_piechart(df_meta_with_value, asset_group,
     piechart_comparison_design(df_for_piechart, ncol=1,loc='center right')
     plt.savefig(directory_to_savefig+"consumption_by_assetclass_piechart_mindsett.png",format='png', dpi=200)
 
-    consumption_mwh_cur = df_for_piechart['sum'].sum()/1000
-    consumption_mwh_pre = df_for_piechart['sum_pre'].sum()/1000
-
-    return consumption_mwh_cur, consumption_mwh_pre
-
 
 def generate_barchart_with_occupancy(db_occupancy, site_name, df_meta_with_value, 
                                      month_current=None, 
@@ -162,15 +157,11 @@ def energy_report(cf):
 
     generate_insight_statements(cf.postgresdb,df_meta_with_value)
 
-    # todo: the value should be obtained from the mains directly
-
-    consumption_mwh_cur, consumption_mwh_pre = generate_piechart(df_meta_with_value, cf.asset_group)
+    generate_piechart(df_meta_with_value, cf.asset_group)
     
     generate_energy_meter_with_benchmarking(df_meta_with_value_building, cf.floor_sqm, industry=cf.industry, period_freq=cf.period_freq)
 
     generate_barchart_with_occupancy(cf.postgresdb, cf.site_name, df_meta_with_value, occupancy_available=cf.occupancy_available)
-
-
 
     generate_co2_barchart(df_meta_with_value_building)
 
