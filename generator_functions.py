@@ -7,7 +7,6 @@ from datetime import date
 
 
 from .processing_functions import ( statement_for_biggest_ooh, 
-                                    preprocessing_for_statement, 
                                     statement_for_avg_action_time, 
                                     statement_for_total_ooh, 
                                     import_data_with_meta,
@@ -16,7 +15,8 @@ from .processing_functions import ( statement_for_biggest_ooh,
                                     preprocessing_for_co2_barchart,
                                     preprocessing_for_piechart,
                                     preprocessing_for_barchart,
-                                    preprocessing_for_energy_meter_with_benchmarking)
+                                    preprocessing_for_energy_meter_with_benchmarking,
+                                    preprocessing_for_statement)
 
 from .pie_chart import piechart_comparison_design
 from .energy_meter_with_benchmarking import energy_meter_with_benchmarking

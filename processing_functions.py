@@ -5,10 +5,11 @@ from sqlalchemy import create_engine
 from .db_read_query import  db_read_query
 from .query_building_total import query_building_total
 
-from .preprocessing_functions import preprocessing_for_piechart, get_group_with_others
+from .preprocessing_functions import preprocessing_for_piechart
 from .preprocessing_functions import preprocessing_for_barchart
 from .preprocessing_functions import preprocessing_for_co2_barchart 
 from .preprocessing_functions import preprocessing_for_energy_meter_with_benchmarking
+from .preprocessing_functions import preprocessing_for_statement
 
 def resample_by_channels(df_source, reading_interval_in_mins=10):
     
@@ -19,90 +20,6 @@ def resample_by_channels(df_source, reading_interval_in_mins=10):
     df_source_filled['channel']= df_source_filled['channel'].astype(str)
     
     return df_source_filled
-
-def enriching_time_features(df_meta_with_value, weekend=5, working_end_time="18:00:00", working_start_time="08:00:00"):
-    
-    # manipulate and clean the data
-    df_meta_with_value.time=pd.to_datetime(df_meta_with_value.time) 
-    df_meta_with_value = df_meta_with_value.set_index("time") 
-
-    # enrich_time_information
-    df_meta_with_value["date"] = df_meta_with_value.index.date
-    df_meta_with_value["day_of_month"] = df_meta_with_value.index.day
-    df_meta_with_value["time_of_day"] = df_meta_with_value.index.time
-
-    df_meta_with_value['time_of_day_in_float'] = df_meta_with_value.index.hour+df_meta_with_value.index.minute/60+df_meta_with_value.index.second/3600
-
-    df_meta_with_value["weekday"] = df_meta_with_value.index.weekday
-    df_meta_with_value["day_name"] = df_meta_with_value.index.day_name()
-    df_meta_with_value["day_code"] = df_meta_with_value["day_name"].str[0]
-    df_meta_with_value["month"] = df_meta_with_value.index.month
-    df_meta_with_value["month_name"] = df_meta_with_value.index.month_name() #new change/implementation -RP
-    df_meta_with_value["out_of_hours"] = df_meta_with_value['weekday'].ge(weekend) | \
-                                            (df_meta_with_value["time_of_day"] > pd.to_datetime(working_end_time).time()) | \
-                                            (df_meta_with_value["time_of_day"] < pd.to_datetime(working_start_time).time())
-    return df_meta_with_value
-
-def statement_for_biggest_ooh(df_asset_group_monthly_sum_others, number_for_pick_out=3):
-
-    df_ooh_biggest = df_asset_group_monthly_sum_others.head(number_for_pick_out+1).tail(number_for_pick_out).drop(columns=['gt_4pct','sum_for_sort'])
-    
-    statement = f"""The biggest out-of-hour consumers of energy are """
-
-    for index, item in enumerate(df_ooh_biggest['sum'].round().astype('int').iteritems()):
-
-        statement_item = str(index+1)+'. '+item[0]+' '+str(item[1])+'kwh, '
-        statement += statement_item
-
-    statement = statement[:-2]+' over previous period.'
-    
-    return statement
-
-def statement_for_total_ooh(df_asset_group_monthly_sum_others, row_index_for_total='Total'):
-
-    sub_pct_value = df_asset_group_monthly_sum_others['sub_pct'][row_index_for_total]
-    sub_pct_abs_value = round(abs(sub_pct_value * 100))
-
-    if sub_pct_abs_value > 1:
-        if sub_pct_value > 0:
-            statement_direction = "up"
-        else:
-            statement_direction = "down"
-        statement = f"""The out-of-hour use had gone {statement_direction} by {sub_pct_abs_value}% compared to previous period."""
-
-    else:   
-        statement = f"""The out-of-hour use had been similar to previous period."""
-        
-    return statement
-
-def statement_for_avg_action_time(db, site_name, asset_name, start_time, end_time,
-                                  action = 1):
-
-    engine = create_engine(db.ENGINE)
-
-    conn = engine.connect().execution_options(stream_results=True)
-
-    time_restriction = f"""(time >= '{start_time}') and (time < '{end_time}')"""
-
-    statement_list = [f""""site_name"='{site_name}'"""]
-    statement_full = " and ".join(statement_list)
-
-    df_on_off = pd.read_sql_query(f"""select * from {db.table_name_on_off} where {statement_full} and {time_restriction};""",
-                                        con=conn)
-
-    df_on_off = enriching_time_features(df_on_off)
-
-    df_on_off_avg = df_on_off.groupby(['action', 'circuit_description']).time_of_day_in_float.mean()
-
-    avg_start_time = str(timedelta(hours=df_on_off_avg[action][asset_name])).split('.')[0][:-3]
-    
-    start_finish_dict = {1: 'start', -1: 'finish'}
-
-    statement = f"The average {start_finish_dict[action]} time for {asset_name} was {avg_start_time} over this period."
-    
-    return statement
-
-
 
 
 def import_metadata(db, site_name, organisation=None, exception=None):
