@@ -5,12 +5,18 @@ import os
 import matplotlib.pyplot as plt
 from datetime import date
 
-from .preprocessing_for_energy_meter_with_benchmarking import preprocessing_for_energy_meter_with_benchmarking
 
-from .processing_functions import (statement_for_biggest_ooh, preprocessing_for_statement, 
-                                    statement_for_avg_action_time, statement_for_total_ooh, 
-                                    preprocessing_for_piechart,preprocessing_for_barchart,
-                                    import_data_with_meta,enriching_time_features,preprocessing_for_co2_barchart,query_building_total)
+from .processing_functions import ( statement_for_biggest_ooh, 
+                                    preprocessing_for_statement, 
+                                    statement_for_avg_action_time, 
+                                    statement_for_total_ooh, 
+                                    import_data_with_meta,
+                                    enriching_time_features,
+                                    query_building_total,
+                                    preprocessing_for_co2_barchart,
+                                    preprocessing_for_piechart,
+                                    preprocessing_for_barchart,
+                                    preprocessing_for_energy_meter_with_benchmarking)
 
 from .pie_chart import piechart_comparison_design
 from .energy_meter_with_benchmarking import energy_meter_with_benchmarking
