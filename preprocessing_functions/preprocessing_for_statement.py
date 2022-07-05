@@ -4,7 +4,7 @@ from datetime import date, timedelta
 import pandas as pd
 from sqlalchemy import create_engine
 
-from utility_functions import enriching_time_features
+from monthly_mindsett_report_modules.utility_functions import enriching_time_features
 
 
 from .get_group_with_others import get_group_with_others
