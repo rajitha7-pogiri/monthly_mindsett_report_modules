@@ -373,4 +373,4 @@ def energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, flo
     plt.axis('off')
     # Specify the directory to save figures, if it does not exist, create it
     Path(directory_to_savefig).mkdir(parents=True, exist_ok=True)
-    plt.savefig(directory_to_savefig+"Monthly_total_and_bm.png", format='png', dpi=200,transparent=True, bbox_inches='tight', pad_inches=0)
+    plt.savefig(directory_to_savefig+"Monthly_total_and_bm_latest.png", format='png', dpi=200,transparent=True, bbox_inches='tight', pad_inches=0)
