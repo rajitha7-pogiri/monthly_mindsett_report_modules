@@ -87,3 +87,5 @@ def insight_statements(db,df_for_statements,df_meta_with_value):   #df_meta_with
         statement_str_avg_action_time = statement_for_avg_action_time(db, site_name, asset_name, start_time_str, end_time_str,
                                   action=1)
         statements_list.append(statement_str_avg_action_time)
+        
+    return statements_list
