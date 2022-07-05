@@ -122,10 +122,22 @@ def generate_co2_barchart(df_meta_with_value_building,
     plt.savefig(directory_to_savefig+"Total_consumption_barchart_with_Co2.png",format='png', dpi=200)
 
 
-def generate_energy_meter_with_benchmarking(df_meta_with_value_building,
+def generate_energy_meter_with_benchmarking(df_meta_with_value_building, floor_sqm,
+                                            industry = "office",
+                                            period_freq = 'M',
+                                            size_in_sqm = True,
                                             directory_to_savefig='./figures/'):
-    consumption_mwh_cur, consumption_mwh_pre= preprocessing_for_energy_meter_with_benchmarking(df_meta_with_value_building)
-    energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre)
+    consumption_mwh_cur, consumption_mwh_pre= preprocessing_for_energy_meter_with_benchmarking(df_meta_with_value_building,freq=period_freq)
+    if period_freq == 'M':
+        period = 30
+    elif period_freq == 'W':
+        period = 7
+    else:
+        raise "Please specify preiod frequency: M for month, W for week"
+
+
+    energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, floor_sqm, 
+                                    industry=industry, period=period, size_in_sqm=size_in_sqm)
     Path(directory_to_savefig).mkdir(parents=True, exist_ok=True)
     plt.savefig(directory_to_savefig+"Monthly_total_and_bm_latest.png",format='png', dpi=200)
 
@@ -152,10 +164,11 @@ def energy_report(cf):
 
     # todo: the value should be obtained from the mains directly
 
-    #consumption_mwh_cur, consumption_mwh_pre = generate_piechart(df_meta_with_value, cf.asset_group)
-    consumption_mwh_cur, consumption_mwh_pre = generate_energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre)
-    #energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, cf.floor_sqm, industry=cf.industry)
-    generate_energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, cf.floor_sqm, industry=cf.industry)
+    consumption_mwh_cur, consumption_mwh_pre = generate_piechart(df_meta_with_value, cf.asset_group)
+    
+    generate_energy_meter_with_benchmarking(df_meta_with_value_building, cf.floor_sqm, industry=cf.industry, period_freq=cf.period_freq)
+    
+    
 
     generate_barchart_with_occupancy(cf.postgresdb, cf.site_name, df_meta_with_value, occupancy_available=cf.occupancy_available)
 
