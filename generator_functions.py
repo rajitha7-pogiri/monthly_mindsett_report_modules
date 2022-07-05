@@ -128,7 +128,7 @@ def generate_energy_meter_with_benchmarking(df_meta_with_value_building, floor_s
     elif period_freq == 'W':
         period = 7
     else:
-        raise Exception("Please specify preiod frequency: M for month, W for week")
+        raise Exception('Please specify preiod frequency: M for month, W for week'.format(period_freq))
 
 
     energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, floor_sqm, 
