@@ -16,7 +16,7 @@ from matplotlib.patheffects import PathPatchEffect, SimpleLineShadow, Normal
 from os import path
 
 
-assets_folder = path.join(path.dirname(__file__), 'assets/energy_meter_with_benchmarking/')
+assets_folder = path.join(path.dirname(__file__), 'assets/')
 
 cd = {"tomato": '#FF836A',"aquablue": '#6DC2B3',"peach": '#FED6D2',"darkgrey": '#9F9D9C',"potato": '#FEF8C8',
       "cyan": '#B6E4E1',"dimgray":'#696969',"Seafoam":'#87e0cf',"gainsboro":'#DCDCDC'}
