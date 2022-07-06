@@ -8,7 +8,7 @@ import colorsys
 
 cd = {"tomato": '#FF836A',"aquablue": '#6DC2B3',"peach": '#FED6D2',"darkgrey": '#9F9D9C',"potato": '#FEF8C8',"cyan": '#B6E4E1'}
 
-assets_folder = os.path.join(os.path.dirname(__file__), 'assets/report_template/')
+assets_folder = os.path.join(os.path.dirname(__file__), 'assets/')
 figures_folder = os.path.join(os.getcwd(), 'figures/')
 
 class PDF(FPDF):
