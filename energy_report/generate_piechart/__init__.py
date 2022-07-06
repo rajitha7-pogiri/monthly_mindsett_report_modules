@@ -1,7 +1,7 @@
 from pathlib import Path
 import matplotlib.pyplot as plt
 
-from .processing_functions import preprocessing_for_piechart
+from .preprocessing_for_piechart import preprocessing_for_piechart
 
 
 from .pie_chart import piechart_comparison_design

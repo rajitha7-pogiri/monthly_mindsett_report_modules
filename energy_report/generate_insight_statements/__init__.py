@@ -1,7 +1,7 @@
 from pathlib import Path
 import pickle
 
-from .processing_functions import  preprocessing_for_statement
+from .preprocessing_for_statement import preprocessing_for_statement
 from .insight_statements import insight_statements
 
 

@@ -1,7 +1,7 @@
 from pathlib import Path
 import matplotlib.pyplot as plt
 
-from .processing_functions import preprocessing_for_energy_meter_with_benchmarking
+from .preprocessing_for_energy_meter_with_benchmarking import preprocessing_for_energy_meter_with_benchmarking
 from .energy_meter_with_benchmarking import energy_meter_with_benchmarking
 
 

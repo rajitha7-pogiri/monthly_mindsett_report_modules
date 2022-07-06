@@ -2,7 +2,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 from datetime import date
 
-from .processing_functions import preprocessing_for_barchart
+from .preprocessing_for_barchart import preprocessing_for_barchart
 from .barchart_with_occupancy import (import_occupancy,
                                       generate_day_code,
                                       energy_and_occupancy_barchart_design)
