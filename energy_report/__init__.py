@@ -38,7 +38,7 @@ def energy_report(cf):
 
     generate_piechart(df_meta_with_value, cf.asset_group)
     
-    generate_energy_meter_with_benchmarking(df_meta_with_value_building, cf.floor_sqm, industry=cf.industry, period_freq=cf.period_freq)
+    generate_energy_meter_with_benchmarking(df_meta_with_value_building, cf.floor_sqm, industry=cf.industry)
 
     generate_barchart_with_occupancy(cf.postgresdb, cf.site_name, df_meta_with_value, occupancy_available=cf.occupancy_available)
 
