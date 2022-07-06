@@ -12,6 +12,7 @@ from .generate_co2_barchart import generate_co2_barchart
 
 from .report_template import generate_report
 
+
 def energy_report(cf):
     
     df_meta_with_value = import_data_with_meta(cf.postgresdb, cf.influxdb, cf.start_time, cf.end_time, cf.site_name,
