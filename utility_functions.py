@@ -9,7 +9,7 @@ def get_group_with_others(row, asset_group):
     else:
         return "Others"
 
-def enriching_time_features(df_meta_with_value, weekend=5, working_end_time="18:00:00", working_start_time="08:00:00"):
+def enriching_time_features(df_meta_with_value, period_freq='M', weekend=5, working_end_time="18:00:00", working_start_time="08:00:00"):
     
     # manipulate and clean the data
     df_meta_with_value.time=pd.to_datetime(df_meta_with_value.time) 
@@ -30,4 +30,6 @@ def enriching_time_features(df_meta_with_value, weekend=5, working_end_time="18:
     df_meta_with_value["out_of_hours"] = df_meta_with_value['weekday'].ge(weekend) | \
                                             (df_meta_with_value["time_of_day"] > pd.to_datetime(working_end_time).time()) | \
                                             (df_meta_with_value["time_of_day"] < pd.to_datetime(working_start_time).time())
+    df_meta_with_value["period"] = df_meta_with_value.index.tz_convert(None).to_period(freq=period_freq)
+    
     return df_meta_with_value
