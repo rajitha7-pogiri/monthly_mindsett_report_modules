@@ -21,6 +21,8 @@ def generate_barchart_with_occupancy(db_occupancy, site_name, df_meta_with_value
 
     df_pivot_working_hours = preprocessing_for_barchart(df_meta_with_value_for_barchart)
 
+    print("df_meta_with_value_for_barchart: ", df_meta_with_value_for_barchart)
+
     if occupancy_available: 
         # import occupancy data
         df_occupancy_cur = import_occupancy(db_occupancy, site_name, period_current)
