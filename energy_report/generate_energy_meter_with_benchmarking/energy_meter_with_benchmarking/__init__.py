@@ -328,7 +328,7 @@ def benchmarking_design(ax, consumption_mwh_cur, floor_sqm,
 def energy_meter_with_benchmarking(consumption_mwh_cur, consumption_mwh_pre, floor_size,
                                     size_in_sqm = True,
                                     industry = "office",
-                                    period = 7,
+                                    period = 30,
                                     conv_mwh_co2 = 0.233,
                                     conv_mwh_pnd = 190,
                                     fx = 0.2, # fancy box x-axis value
