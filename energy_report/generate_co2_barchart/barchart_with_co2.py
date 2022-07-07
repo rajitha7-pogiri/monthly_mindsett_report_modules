@@ -46,7 +46,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         bar_fillcolour = ['k','w']
 
         #x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%b %y").tolist()
-        x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%u %b").tolist()   
+        x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%w %b").tolist()   
         x_ticks_labels.insert(0,"")
         x_ticks_labels.append("")
 
