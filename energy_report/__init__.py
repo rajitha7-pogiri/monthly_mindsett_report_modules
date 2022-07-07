@@ -23,6 +23,7 @@ def energy_report(cf):
     df_meta_with_value[cf.asset_group] = df_meta_with_value[cf.asset_group].fillna(cf.fillna_value) 
 
     df_meta_with_value = enriching_time_features(df_meta_with_value, 
+                                                    period_freq=cf.period_freq,
                                                     weekend=cf.weekend, 
                                                     working_end_time=cf.working_end_time, 
                                                     working_start_time=cf.working_start_time)
@@ -32,7 +33,8 @@ def energy_report(cf):
                                                        end_time=cf.end_time, 
                                                        building_name = cf.site_name)
 
-    df_meta_with_value_building = enriching_time_features(df_meta_with_value_building)
+    df_meta_with_value_building = enriching_time_features(df_meta_with_value_building,
+                                                    period_freq=cf.period_freq)
 
     generate_insight_statements(cf.postgresdb, df_meta_with_value)
 

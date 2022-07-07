@@ -15,7 +15,7 @@ def generate_barchart_with_occupancy(db_occupancy, site_name, df_meta_with_value
                                      directory_to_savefig='./figures/'):
 
 
-    period_current = df_meta_with_value["period"].max()
+    period_current = df_meta_with_value["period"].unique()[-2]
 
     df_meta_with_value_for_barchart = df_meta_with_value.loc[df_meta_with_value["period"]==period_current]
 
