@@ -8,7 +8,6 @@ from .barchart_with_occupancy import (import_occupancy,
                                       energy_and_occupancy_barchart_design)
 
 def generate_barchart_with_occupancy(db_occupancy, site_name, df_meta_with_value, 
-                                     month_current=None, 
                                      occupancy_available = False,
                                      tick_range_e=None,
                                      tick_range_o=[-5, 40],
@@ -19,13 +18,15 @@ def generate_barchart_with_occupancy(db_occupancy, site_name, df_meta_with_value
         today = date.today()
         month_current = int(today.strftime("%m")) - 1
 
-    df_meta_with_value_for_barchart = df_meta_with_value.loc[df_meta_with_value.month==month_current]
+    period_current = df_meta_with_value["period"].max()
+
+    df_meta_with_value_for_barchart = df_meta_with_value.loc[df_meta_with_value["period"]==period_current]
 
     df_pivot_working_hours = preprocessing_for_barchart(df_meta_with_value_for_barchart)
 
     if occupancy_available: 
         # import occupancy data
-        df_occupancy_cur = import_occupancy(db_occupancy, site_name)
+        df_occupancy_cur = import_occupancy(db_occupancy, site_name, period_current)
     else:
         df_occupancy_cur = None
 

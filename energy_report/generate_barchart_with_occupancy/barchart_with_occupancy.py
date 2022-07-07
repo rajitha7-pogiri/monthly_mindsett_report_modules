@@ -6,19 +6,19 @@ import matplotlib.ticker as ticker
 import psycopg2
 from datetime import date
 
-def import_occupancy(db, site_name, month_current=None,
+def import_occupancy(db, site_name, period_current,
                      table_name = 'building_occupancy',
                      selected_columns = ["date", "occupancy"]):
     
     # organisation can be added later
     
-    if month_current is None:#
-        today = date.today()
-        month_current = int(today.strftime("%m")) - 1
+    start_time = period_current.start_time
+    end_time = period_current.end_time
     
     selected_columns_str = ", ".join(selected_columns)
+    date_clause_str = f"(date between '{start_time}' and '{end_time}')"
 
-    s  = f"""SELECT {selected_columns_str} FROM {table_name} WHERE building='{site_name}'"""
+    s  = f"""SELECT {selected_columns_str} FROM {table_name} WHERE building='{site_name}' and {date_clause_str}"""
 
     conn = psycopg2.connect(db.CONNECTION)
 
@@ -33,7 +33,7 @@ def import_occupancy(db, site_name, month_current=None,
     df_occupancy=df_occupancy.set_index("Date").sort_index()
     df_occupancy_fixed=df_occupancy.drop(columns=['date'])
 
-    df_occupancy_cur = df_occupancy_fixed.loc[df_occupancy_fixed['month'] == month_current] # To select particular month
+    df_occupancy_cur =  df_occupancy_fixed # To select particular month
     
     return df_occupancy_cur
 
@@ -89,6 +89,8 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
         if df_occupancy_cur is not None:
 
+            # todo: month information can be removed df_occupancy
+            
             df_occupancy_cur.reset_index(drop=True, inplace=True)
 
             # the right y axis
