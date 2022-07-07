@@ -90,7 +90,7 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         if df_occupancy_cur is not None:
 
             # todo: month information can be removed df_occupancy
-            
+
             df_occupancy_cur.reset_index(drop=True, inplace=True)
 
             # the right y axis
@@ -145,15 +145,17 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         ax_l.legend(loc='upper left', bbox_to_anchor=(0.025, 0.97))
 
 
+        
+        ax_l.tick_params(axis='x', which='major', pad=8)
+        top_index = df_pivot_working_hours.index.min() - 2.1
+        bot_index = df_pivot_working_hours.index.max() + 2.1
+        ax.set_xlim([top_index, bot_index])
+
         # fixing yticks with matplotlib.ticker "FixedLocator"
         ticks_loc = ax_l.get_xticks().tolist()
         ax_l.xaxis.set_major_locator(ticker.FixedLocator(ticks_loc))
 
         ax_l.set_xticklabels(day_code_list)
-        ax_l.tick_params(axis='x', which='major', pad=8)
-        top_index = df_pivot_working_hours.index.min() - 2
-        bot_index = df_pivot_working_hours.index.max() + 2
-        ax.set_xlim([top_index, bot_index])
         
         fig.tight_layout(rect=tight_layout_rect)
 
