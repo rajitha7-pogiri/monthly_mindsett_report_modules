@@ -113,24 +113,24 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         ax_l.set_yticks(np.arange(0, tick_range_e, 0.1))
         ax_l.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
 
-        print("df_occupancy_cur: ", df_occupancy_cur)
+
+        tight_layout_rect=(0, 0, 0.93, 1) # intentionally add some padding on the right hand side 
 
         if df_occupancy_cur is not None:
-            print("df_occupancy_cur is not None ")
-            # todo: month information can be removed df_occupancy
+            if df_occupancy_cur.shape[0] > 0:
 
-            df_occupancy_cur.reset_index(drop=True, inplace=True)
+                # todo: month information can be removed df_occupancy
 
-            # the right y axis
-            ax_r = ax_l.twinx() # instantiate a second axes that shares the same x-axis
-            ax_r.set_ylabel("People Registered", labelpad=10, fontsize ='12')
-            ax_r.set_ylim(tick_range_o)
-            ax_r.plot(df_occupancy_cur['occupancy'], color= 'k', lw=0.6, ls='dashed', marker=".", ms=6, mec="k", label='Occupancy')
-            ax_r.legend(loc='upper right', bbox_to_anchor=(0.97, 0.98))
+                df_occupancy_cur.reset_index(drop=True, inplace=True)
 
-            tight_layout_rect=(0, 0,   1, 1)
-        else:
-            tight_layout_rect=(0, 0, 0.93, 1) # intentionally add some padding on the right hand side 
+                # the right y axis
+                ax_r = ax_l.twinx() # instantiate a second axes that shares the same x-axis
+                ax_r.set_ylabel("People Registered", labelpad=10, fontsize ='12')
+                ax_r.set_ylim(tick_range_o)
+                ax_r.plot(df_occupancy_cur['occupancy'], color= 'k', lw=0.6, ls='dashed', marker=".", ms=6, mec="k", label='Occupancy')
+                ax_r.legend(loc='upper right', bbox_to_anchor=(0.97, 0.98))
+
+                tight_layout_rect=(0, 0,   1, 1)
 
         bot_hours = not top_hours
 
