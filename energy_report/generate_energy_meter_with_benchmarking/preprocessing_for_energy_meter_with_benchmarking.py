@@ -8,6 +8,11 @@ def preprocessing_for_energy_meter_with_benchmarking(df_meta_with_value_building
 
     consumption_mwh_pre, consumption_mwh_cur = df_period_total.to_list()
 
-    days_in_period = df_period_total.index[-1].day
+    period_freqstr = df_period_total.index[-1].freqstr
+
+    if period_freqstr == "M":
+        days_in_period = df_period_total.index[-1].daysinmonth
+    else:
+        days_in_period = 7
 
     return consumption_mwh_cur, consumption_mwh_pre, days_in_period
