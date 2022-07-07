@@ -113,8 +113,10 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         ax_l.set_yticks(np.arange(0, tick_range_e, 0.1))
         ax_l.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
 
-        if df_occupancy_cur is not None:
+        print("df_occupancy_cur: ", df_occupancy_cur)
 
+        if df_occupancy_cur is not None:
+            print("df_occupancy_cur is not None ")
             # todo: month information can be removed df_occupancy
 
             df_occupancy_cur.reset_index(drop=True, inplace=True)
