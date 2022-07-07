@@ -14,9 +14,6 @@ def generate_barchart_with_occupancy(db_occupancy, site_name, df_meta_with_value
                                      top_hours=True,
                                      directory_to_savefig='./figures/'):
 
-    if month_current is None:
-        today = date.today()
-        month_current = int(today.strftime("%m")) - 1
 
     period_current = df_meta_with_value["period"].max()
 
