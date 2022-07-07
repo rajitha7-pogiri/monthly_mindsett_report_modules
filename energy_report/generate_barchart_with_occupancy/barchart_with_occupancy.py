@@ -48,13 +48,13 @@ def generate_day_code_list(day_code_dict):
         if item.month == previous_day_month:
             month_str = ""
         else:
-            month_str = "\n"+str(item.strftime("%b"))
+            month_str = " "+str(item.strftime("%b"))
         previous_day_month = item.month
 
         if item.year == previous_day_year:
             year_str = ''
         else:
-            year_str = "\n"+str(item.year)
+            year_str = " "+str(item.year)
         previous_day_year = item.year
 
         day_code = weekday_str+day_str+month_str+year_str
