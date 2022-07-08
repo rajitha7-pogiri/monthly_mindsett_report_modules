@@ -55,10 +55,11 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         if df_grouped_working_hours_period_unstacked.index.freqstr == 'M':
             x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%b %y").tolist()
             ax_l.set_xlabel("Month", labelpad= 13,fontsize ='11')
+            plt.xticks(rotation=45)
         else :
             x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%W").tolist()   #week number
             ax_l.set_xlabel("Week Number", labelpad= 13,fontsize ='11')
-
+            plt.xticks(rotation=0)
 
         x_ticks_labels.insert(0,"")
         x_ticks_labels.append("")
@@ -115,7 +116,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
 
         
         ax.set_xticklabels(x_ticks_labels,fontsize ='10')
-        plt.xticks(rotation=0)
+        
         ax.tick_params(axis='both', which='major', pad=8, length=5, labelsize="10")
         top_index = df_grouped_working_hours_period_reset_index.index.min() - 0.9
         bot_index = df_grouped_working_hours_period_reset_index.index.max() + 0.9
