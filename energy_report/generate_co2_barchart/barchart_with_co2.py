@@ -50,7 +50,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
 
         #x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%b %y").tolist()
         x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%W").tolist()   #week number
-        x_ticks_labels[0] = "Week "+x_ticks_labels[0]
+        
         x_ticks_labels.insert(0,"")
         x_ticks_labels.append("")
 
@@ -73,6 +73,8 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         ax_l.set_ylabel("Total consumption (MWh)", labelpad= 13,fontsize ='11')
         ax_l.yaxis.tick_right()
         ax_l.yaxis.set_label_position("right")
+
+        ax_l.set_xlabel("Week Number", labelpad= 13,fontsize ='11')
 
         # bottom bar inner part
         ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-white_padding_below_bar, 
