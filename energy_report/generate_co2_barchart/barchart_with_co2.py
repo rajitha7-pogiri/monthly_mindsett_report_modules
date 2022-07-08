@@ -35,7 +35,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
          
         ax.set_ylim(ylim)
 
-        white_padding_below_bar = (max(ylim) - min(ylim))/100
+        white_padding_below_bar = (max(ylim) - min(ylim))/50
         white_padding_below_bar_for_legend = white_padding_below_bar/3
         
 
@@ -65,7 +65,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
                  width=0.5, lw=1.2, color=hours_colors[top_hours],edgecolor=bar_edgecolour[0], 
                  bottom=df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-white_padding_below_bar_for_legend, label=hours_labels[top_hours])
         #edge of bar
-        ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[top_hours].fillna(0)+0.2+df_grouped_working_hours_period_reset_index[bot_hours].fillna(0), 
+        ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[top_hours].fillna(0)+df_grouped_working_hours_period_reset_index[bot_hours].fillna(0), 
                  width=0.7, lw=1.5, edgecolor=bar_edgecolour[0], color=bar_fillcolour[1])
 
 
@@ -88,7 +88,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
                  width=0.5, lw=1, edgecolor=bar_edgecolour[0], 
                  color= bar_fillcolour[0], bottom=df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-white_padding_below_bar) 
 
-        # white bar at the bottom
+        # white padding at the bottom
         ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[top_hours]*0+white_padding_below_bar, 
                  width=0.6, lw=0, edgecolor=bar_edgecolour[1], color= bar_fillcolour[1]) 
         
