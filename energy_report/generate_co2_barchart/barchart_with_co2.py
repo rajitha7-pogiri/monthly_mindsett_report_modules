@@ -34,6 +34,9 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
             ylim = (ylim_min,ylim_max)
          
         ax.set_ylim(ylim)
+
+        white_padding_below_bar = (max(ylim) - min(ylim))/100
+        white_padding_below_bar_for_legend = white_padding_below_bar/3
         
 
         #top_hours = True # False: in-hours, True: out-of-hours
@@ -54,13 +57,13 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         
 
         # bottom bar legend label
-        ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-2/1000, 
+        ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-white_padding_below_bar_for_legend, 
                  width=0.5, lw=1.2, color=hours_colors[bot_hours], 
                  edgecolor=bar_edgecolour[0], label=hours_labels[bot_hours])
         # top bar legend label
         ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[top_hours].fillna(0), 
                  width=0.5, lw=1.2, color=hours_colors[top_hours],edgecolor=bar_edgecolour[0], 
-                 bottom=df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-5/1000, label=hours_labels[top_hours])
+                 bottom=df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-white_padding_below_bar_for_legend, label=hours_labels[top_hours])
         #edge of bar
         ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[top_hours].fillna(0)+0.2+df_grouped_working_hours_period_reset_index[bot_hours].fillna(0), 
                  width=0.7, lw=1.5, edgecolor=bar_edgecolour[0], color=bar_fillcolour[1])
@@ -71,22 +74,22 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         ax_l.yaxis.set_label_position("right")
 
         # bottom bar inner part
-        ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-7/1000, 
+        ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-white_padding_below_bar, 
                  width=0.5, lw=0, color= hours_colors[bot_hours], 
                  edgecolor=bar_edgecolour[1])
         
         #top bar inner part
         ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[top_hours].fillna(0), 
                  width=0.5, lw=0, color= hours_colors[top_hours], 
-                 edgecolor=bar_edgecolour[1], bottom=df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-7/1000)
+                 edgecolor=bar_edgecolour[1], bottom=df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-white_padding_below_bar)
 
         # black bar for separation
         ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[top_hours]*0, 
                  width=0.5, lw=1, edgecolor=bar_edgecolour[0], 
-                 color= bar_fillcolour[0], bottom=df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-7/1000) 
+                 color= bar_fillcolour[0], bottom=df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-white_padding_below_bar) 
 
         # white bar at the bottom
-        ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[top_hours]*0+0.2, 
+        ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[top_hours]*0+white_padding_below_bar, 
                  width=0.6, lw=0, edgecolor=bar_edgecolour[1], color= bar_fillcolour[1]) 
         
         

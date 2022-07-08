@@ -1,88 +1,15 @@
-import pandas as pd
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import (MultipleLocator, FormatStrFormatter, AutoMinorLocator)
 import matplotlib.ticker as ticker
-import psycopg2
-from datetime import date
 
-def import_occupancy(db, site_name, period_current,
-                     table_name = 'building_occupancy',
-                     selected_columns = ["date", "occupancy"]):
-    
-    # organisation can be added later
-    
-    start_time = period_current.start_time
-    end_time = period_current.end_time
-    
-    selected_columns_str = ", ".join(selected_columns)
-    date_clause_str = f"(date between '{start_time}' and '{end_time}')"
-
-    s  = f"""SELECT {selected_columns_str} FROM {table_name} WHERE building='{site_name}' and {date_clause_str}"""
-
-    conn = psycopg2.connect(db.CONNECTION)
-
-    data_cursor = conn.cursor()
-    data_cursor.execute(s)
-    listTables = data_cursor.fetchall()
-
-    df_occupancy = pd.DataFrame(listTables, columns=selected_columns)
-
-    df_occupancy['month']=pd.to_datetime(df_occupancy.date).dt.month
-    df_occupancy['Date']=pd.to_datetime(df_occupancy.date).dt.day
-    df_occupancy=df_occupancy.set_index("Date").sort_index()
-    df_occupancy_fixed=df_occupancy.drop(columns=['date'])
-
-    df_occupancy_cur =  df_occupancy_fixed # To select particular month
-    
-    return df_occupancy_cur
-
-def generate_day_code_list(day_code_dict):
-    previous_day_month = None
-    previous_day_year = None
-    day_code_list = []
-
-    for item in day_code_dict:
-        weekday_str = day_code_dict[item]
-        day_str = "\n"+str(item.day)
-        if item.month == previous_day_month:
-            month_str = ""
-        else:
-            month_str = " "+str(item.strftime("%b"))
-        previous_day_month = item.month
-
-        if item.year == previous_day_year:
-            year_str = ''
-        else:
-            year_str = " "+str(item.year)
-        previous_day_year = item.year
-
-        day_code = weekday_str+day_str+month_str+year_str
-
-        day_code_list.append(day_code)
-        
-    return day_code_list
-
-
-def generate_day_code(df_meta_with_value):
-    
-    multi_index = df_meta_with_value.groupby(["date", 'day_code']).sum().index
-
-    day_code_dict = dict(multi_index)
-
-    day_code_list = generate_day_code_list(day_code_dict)
-
-    day_code_list.insert(0,"")
-    day_code_list.insert(0,"")
-    # day_code_list.insert(0,"")
-    day_code_list.append("")
-    day_code_list.append("")
-
-    return day_code_list
+from .import_occupancy import import_occupancy
+from .generate_day_code import generate_day_code
 
 def energy_and_occupancy_barchart_design(df_pivot_working_hours,
                                          day_code_list,
-                                         tick_range_e=None,
+                                         tick_range_e=None,  # tick range for energy value
                                          fs = (8, 3.5), # (8, 3.5) -- Charter house and academy
                                          top_hours = True, # False: in-hours, True: out-of-hours
                                          bar_color = '#6DC2B3',
