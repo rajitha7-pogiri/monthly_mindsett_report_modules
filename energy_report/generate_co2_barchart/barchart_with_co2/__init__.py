@@ -127,7 +127,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
 
         # adding icons to x axis
 
-        image_zoom = 1
+        image_zoom = 0.01
         image_x = -0.5
         image_y = -0.2
         image_name = "week.png"
@@ -136,6 +136,6 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         ibox = OffsetImage(icon, zoom=image_zoom)
         readingicon = AnnotationBbox(ibox, (image_x, image_y), frameon = False)
         ax.add_artist(readingicon)
-        
+
         ax_l.legend(loc='upper left', bbox_to_anchor=(-0,1.02,1,0.2),fontsize=9,ncol=2)
         fig.tight_layout()
