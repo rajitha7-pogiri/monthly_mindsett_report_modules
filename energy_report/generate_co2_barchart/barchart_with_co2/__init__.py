@@ -3,7 +3,11 @@ import pandas as pd # Import pandas
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+from os import path
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+import matplotlib.image as mpimg
 
+assets_folder = path.join(path.dirname(__file__), 'assets/')
 
 def co2_design(df_grouped_working_hours_period_reset_index):
     
@@ -31,11 +35,11 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         if ylim is None:
             ylim_min = 0
             ylim_max = df_grouped_working_hours_period_unstacked.sum(axis=1).max()*(ylim_pad_ratio+1)
-            ylim = (ylim_min,ylim_max)
+            ylim = (ylim_min, ylim_max)
          
         ax.set_ylim(ylim)
 
-        white_padding_below_bar = (max(ylim) - min(ylim))/50
+        white_padding_below_bar = (max(ylim) - min(ylim))/70
         white_padding_below_bar_for_legend = white_padding_below_bar/3
         
 
@@ -48,9 +52,14 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         bar_edgecolour = ['k','w']
         bar_fillcolour = ['k','w']
 
-        #x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%b %y").tolist()
-        x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%W").tolist()   #week number
-        
+        if df_grouped_working_hours_period_unstacked.index.freqstr == 'M':
+            x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%b %y").tolist()
+            ax_l.set_xlabel("Month", labelpad= 13,fontsize ='11')
+        else :
+            x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%W").tolist()   #week number
+            ax_l.set_xlabel("Week Number", labelpad= 13,fontsize ='11')
+
+
         x_ticks_labels.insert(0,"")
         x_ticks_labels.append("")
 
@@ -65,7 +74,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[top_hours].fillna(0), 
                  width=0.5, lw=1.2, color=hours_colors[top_hours],edgecolor=bar_edgecolour[0], 
                  bottom=df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-white_padding_below_bar_for_legend, label=hours_labels[top_hours])
-        #edge of bar
+        # edge of bar
         ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[top_hours].fillna(0)+df_grouped_working_hours_period_reset_index[bot_hours].fillna(0), 
                  width=0.7, lw=1.5, edgecolor=bar_edgecolour[0], color=bar_fillcolour[1])
 
@@ -74,14 +83,14 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         ax_l.yaxis.tick_right()
         ax_l.yaxis.set_label_position("right")
 
-        ax_l.set_xlabel("Week Number", labelpad= 13,fontsize ='11')
+        
 
         # bottom bar inner part
         ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-white_padding_below_bar, 
                  width=0.5, lw=0, color= hours_colors[bot_hours], 
                  edgecolor=bar_edgecolour[1])
         
-        #top bar inner part
+        # top bar inner part
         ax_l.bar(df_grouped_working_hours_period_reset_index.index, df_grouped_working_hours_period_reset_index[top_hours].fillna(0), 
                  width=0.5, lw=0, color= hours_colors[top_hours], 
                  edgecolor=bar_edgecolour[1], bottom=df_grouped_working_hours_period_reset_index[bot_hours].fillna(0)-white_padding_below_bar)
@@ -113,9 +122,20 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         ax.set_xlim([top_index, bot_index])
         
         
-        #C02 insertion
+        # C02 insertion
         co2_design(df_grouped_working_hours_period_reset_index)
 
+        # adding icons to x axis
 
+        image_zoom = 1
+        image_x = -0.5
+        image_y = -0.2
+        image_name = "week.png"
+
+        icon = mpimg.imread(assets_folder + image_name)
+        ibox = OffsetImage(icon, zoom=image_zoom)
+        readingicon = AnnotationBbox(ibox, (image_x, image_y), frameon = False)
+        ax.add_artist(readingicon)
+        
         ax_l.legend(loc='upper left', bbox_to_anchor=(-0,1.02,1,0.2),fontsize=9,ncol=2)
         fig.tight_layout()
