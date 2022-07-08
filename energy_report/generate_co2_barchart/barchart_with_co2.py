@@ -104,7 +104,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
 
         
         ax.set_xticklabels(x_ticks_labels,fontsize ='10')
-        plt.xticks(rotation=45)
+        plt.xticks(rotation=0)
         ax.tick_params(axis='both', which='major', pad=8, length=5, labelsize="10")
         top_index = df_grouped_working_hours_period_reset_index.index.min() - 0.9
         bot_index = df_grouped_working_hours_period_reset_index.index.max() + 0.9
