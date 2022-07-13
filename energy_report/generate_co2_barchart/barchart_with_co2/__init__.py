@@ -129,9 +129,9 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         # adding icons to x axis
 
         image_zoom = 0.06
-        image_x = 0.5
-        image_y = 0
-        image_name = "week.png"
+        image_x = 7.8
+        image_y = -2
+        image_name = "month.png"
 
         icon = mpimg.imread(assets_folder + image_name)
         ibox = OffsetImage(icon, zoom=image_zoom)
