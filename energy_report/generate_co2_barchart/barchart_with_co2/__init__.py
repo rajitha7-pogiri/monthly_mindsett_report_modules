@@ -129,8 +129,8 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         # adding icons to x axis
 
         image_zoom = 0.06
-        image_x = 7.8
-        image_y = -2
+        image_x = 1
+        image_y = -1
         image_name = "month.png"
 
         icon = mpimg.imread(assets_folder + image_name)
