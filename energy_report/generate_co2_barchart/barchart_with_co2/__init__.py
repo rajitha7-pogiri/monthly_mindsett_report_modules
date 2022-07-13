@@ -134,7 +134,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         # adding icons to x axis
 
         image_zoom = 0.05
-        image_x = x_pad_on_left
+        image_x = - x_pad_on_left
         image_y = 0
         image_name = icon_filename
 
