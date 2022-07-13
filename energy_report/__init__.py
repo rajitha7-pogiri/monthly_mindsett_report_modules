@@ -26,17 +26,27 @@ def energy_report(cf):
     if cf.debug is True:
         try:
             df_meta_with_value = pd.read_pickle(directory_to_cache+"/df_meta_with_value.pkl")
+            df_meta_with_value_building = pd.read_pickle(directory_to_cache+"/df_meta_with_value_building.pkl")
         except:
             df_meta_with_value = import_data_with_meta(cf.postgresdb, cf.influxdb, cf.start_time, cf.end_time, cf.site_name,
                                                         exception=cf.exception,
                                     meta_columns_for_join=cf.meta_columns_for_join,
                                     iot_columns_for_join=cf.iot_columns_for_join)
+            df_meta_with_value_building = query_building_total(cf.postgresdb, 
+                                                       start_time=cf.start_time_co2_barchart,
+                                                       end_time=cf.end_time, 
+                                                       building_name = cf.site_name)
             df_meta_with_value.to_pickle(directory_to_cache+"/df_meta_with_value.pkl")
+            df_meta_with_value_building.to_pickle(directory_to_cache+"/df_meta_with_value_building.pkl")
     else:
         df_meta_with_value = import_data_with_meta(cf.postgresdb, cf.influxdb, cf.start_time, cf.end_time, cf.site_name,
                                                         exception=cf.exception,
                                     meta_columns_for_join=cf.meta_columns_for_join,
                                     iot_columns_for_join=cf.iot_columns_for_join)
+        df_meta_with_value_building = query_building_total(cf.postgresdb, 
+                                                       start_time=cf.start_time_co2_barchart,
+                                                       end_time=cf.end_time, 
+                                                       building_name = cf.site_name)
 
 
     df_meta_with_value[cf.asset_group] = df_meta_with_value[cf.asset_group].fillna(cf.fillna_value) 
