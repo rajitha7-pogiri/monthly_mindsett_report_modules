@@ -1,4 +1,5 @@
-
+from pathlib import Path
+import pickle
 
 from monthly_mindsett_report_modules.utility_functions import enriching_time_features
 
@@ -14,6 +15,13 @@ from .report_template import generate_report
 
 
 def energy_report(cf):
+
+    # add cache mehanism to improve efficiency for testing
+
+    # Specify the directory to save figures, if it does not exist, create it
+    directory_to_cache = './cache'
+    Path(directory_to_cache).mkdir(parents=True, exist_ok=True)
+
     
     df_meta_with_value = import_data_with_meta(cf.postgresdb, cf.influxdb, cf.start_time, cf.end_time, cf.site_name,
                                                   exception=cf.exception,
