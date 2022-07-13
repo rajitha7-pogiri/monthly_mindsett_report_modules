@@ -69,7 +69,7 @@ class PDF(FPDF):
 def generate_report(site_name, statements_list=None, organisation=None, report_file_name='Mindsett_Energy_Report.pdf', files_folder='./files/', figures_folder='./figures/'):
 
     with open(files_folder+'statements.pkl', 'rb') as f:
-        statements_list = pickle.load(f)
+        auto_statements_list = pickle.load(f)
 
     pdf = PDF()
     pdf.add_page()
@@ -137,6 +137,29 @@ def generate_report(site_name, statements_list=None, organisation=None, report_f
     # pdf.set_x(29)
     # pdf.write_multicell_with_styles(pdf.w-40,6,text_list)
 
+    # Insights statements 
+
+    if statements_list is not None:
+
+        insight_statements_list = statements_list
+
+        pdf.ln(5)
+        pdf.set_x(20)
+        pdf.set_font('Arial', 'I', 12)
+        pdf.set_text_color(0,0,0)
+        pdf.multi_cell(pdf.w - 50, 10, 'Insights: \n')
+
+        text_list = []
+
+        for statement in insight_statements_list:
+
+            statement_text =  [{'text': '- '+statement+' '}]
+            text_list += statement_text
+
+        pdf.set_x(29)
+        pdf.write_multicell_with_styles(pdf.w-50,6,text_list)
+
+    # Automated Observations statements
     pdf.ln(5)
     pdf.set_x(20)
     pdf.set_font('Arial', 'I', 12)
@@ -145,7 +168,7 @@ def generate_report(site_name, statements_list=None, organisation=None, report_f
 
     text_list = []
 
-    for statement in statements_list:
+    for statement in auto_statements_list:
 
         statement_text =  [{'text': '- '+statement+' '}]
         text_list += statement_text

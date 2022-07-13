@@ -46,6 +46,9 @@ def energy_report(cf):
 
     generate_co2_barchart(df_meta_with_value_building)
 
-    generate_report(cf.site_name, organisation=cf.organisation)
+    try: # Handel the case where insights statement is not provided
+        generate_report(cf.site_name, statements_list=cf.insight_statements, organisation=cf.organisation)
+    except:
+        generate_report(cf.site_name, organisation=cf.organisation)
 
 
