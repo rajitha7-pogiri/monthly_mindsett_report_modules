@@ -1,5 +1,6 @@
 from pathlib import Path
 import pickle
+import pandas as pd
 
 from monthly_mindsett_report_modules.utility_functions import enriching_time_features
 
@@ -22,11 +23,21 @@ def energy_report(cf):
     directory_to_cache = './cache'
     Path(directory_to_cache).mkdir(parents=True, exist_ok=True)
 
-    
-    df_meta_with_value = import_data_with_meta(cf.postgresdb, cf.influxdb, cf.start_time, cf.end_time, cf.site_name,
-                                                  exception=cf.exception,
-                              meta_columns_for_join=cf.meta_columns_for_join,
-                              iot_columns_for_join=cf.iot_columns_for_join)
+    if cf.debug is True:
+        try:
+            df_meta_with_value = pd.read_pickle(directory_to_cache+"/df_meta_with_value.pkl")
+        except:
+            df_meta_with_value = import_data_with_meta(cf.postgresdb, cf.influxdb, cf.start_time, cf.end_time, cf.site_name,
+                                                        exception=cf.exception,
+                                    meta_columns_for_join=cf.meta_columns_for_join,
+                                    iot_columns_for_join=cf.iot_columns_for_join)
+            df_meta_with_value.to_pickle(directory_to_cache+"/df_meta_with_value.pkl")
+    else:
+        df_meta_with_value = import_data_with_meta(cf.postgresdb, cf.influxdb, cf.start_time, cf.end_time, cf.site_name,
+                                                        exception=cf.exception,
+                                    meta_columns_for_join=cf.meta_columns_for_join,
+                                    iot_columns_for_join=cf.iot_columns_for_join)
+
 
     df_meta_with_value[cf.asset_group] = df_meta_with_value[cf.asset_group].fillna(cf.fillna_value) 
 
