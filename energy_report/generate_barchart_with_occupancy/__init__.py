@@ -10,7 +10,7 @@ from .barchart_with_occupancy import (import_occupancy,
 def generate_barchart_with_occupancy(db_occupancy, site_name, df_meta_with_value, 
                                      occupancy_available = False,
                                      tick_range_e=None,
-                                     tick_range_o=[-5, 40],
+                                     tick_range_o=None,
                                      top_hours=True,
                                      directory_to_savefig='./figures/'):
 
