@@ -20,11 +20,7 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
         df_pivot_working_hours[False].fillna(0)
         
-        if tick_range_e is None:
-            tick_range_e = df_pivot_working_hours.sum(axis=1).max()*1.4
 
-        white_padding_below_bar = tick_range_e/100
-        white_padding_below_bar_for_legend = white_padding_below_bar/3
 
         df_pivot_working_hours.reset_index(drop=True, inplace=True)
 
@@ -47,6 +43,12 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
             ax_l.set_ylim([0,tick_range_e*1000])
             #ax_l.set_yticks(np.arange(0, tick_range_e, 0.1))
             ax_l.yaxis.set_major_formatter(FormatStrFormatter('%.0f'))
+
+        if tick_range_e is None:
+            tick_range_e = df_pivot_working_hours.sum(axis=1).max()*1.4
+
+        white_padding_below_bar = tick_range_e/100
+        white_padding_below_bar_for_legend = white_padding_below_bar/3
 
 
         tight_layout_rect=(0, 0, 0.93, 1) # intentionally add some padding on the right hand side 
