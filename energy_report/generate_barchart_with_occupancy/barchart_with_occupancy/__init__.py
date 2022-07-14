@@ -23,8 +23,7 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         if tick_range_e is None:
             tick_range_e = df_pivot_working_hours.sum(axis=1).max()*1.4
 
-        if tick_range_o is None:
-            tick_range_o = df_occupancy_cur['occupancy'].max()
+
 
         white_padding_below_bar = tick_range_e/100
         white_padding_below_bar_for_legend = white_padding_below_bar/3
@@ -56,6 +55,10 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
                 # the right y axis
                 ax_r = ax_l.twinx() # instantiate a second axes that shares the same x-axis
                 ax_r.set_ylabel("People Registered", labelpad=10, fontsize ='12')
+                
+                if tick_range_o is None:
+                    tick_range_o = df_occupancy_cur['occupancy'].max()                
+
                 ax_r.set_ylim([0,tick_range_o])
                 ax_r.plot(df_occupancy_cur['occupancy'], color= 'k', lw=0.6, ls='dashed', marker=".", ms=6, mec="k", label='Occupancy')
                 ax_r.legend(loc='upper right', bbox_to_anchor=(0.97, 0.98))
