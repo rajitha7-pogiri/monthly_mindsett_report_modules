@@ -44,7 +44,7 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         else:
             df_pivot_working_hours = df_pivot_working_hours.mul(1000)
             ax_l.set_ylabel("Energy Consumption (kWh)", labelpad=10,fontsize ='12')
-            ax_l.set_ylim([0,tick_range_e*100])
+            ax_l.set_ylim([0,tick_range_e*1000])
             #ax_l.set_yticks(np.arange(0, tick_range_e, 0.1))
             ax_l.yaxis.set_major_formatter(FormatStrFormatter('%.0f'))
 
