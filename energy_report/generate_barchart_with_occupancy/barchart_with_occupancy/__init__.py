@@ -23,8 +23,6 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         if tick_range_e is None:
             tick_range_e = df_pivot_working_hours.sum(axis=1).max()*1.4
 
-
-
         white_padding_below_bar = tick_range_e/100
         white_padding_below_bar_for_legend = white_padding_below_bar/3
 
@@ -36,11 +34,18 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         ax_l = ax
         colors_ax_l = [bar_color]
 
+        max_daily_consumption = df_pivot_working_hours.sum(axis=1).max()
 
-        ax_l.set_ylabel("Energy Consumption (MWh)", labelpad=10,fontsize ='12')
-        ax_l.set_ylim([0,tick_range_e])
-        ax_l.set_yticks(np.arange(0, tick_range_e, 0.1))
-        ax_l.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+        if max_daily_consumption > 0.1: # 100 kwh = 0.1 mwh as switching point for unit as kwh or mwh
+            ax_l.set_ylabel("Energy Consumption (MWh)", labelpad=10,fontsize ='12')
+            ax_l.set_ylim([0,tick_range_e])
+            #ax_l.set_yticks(np.arange(0, tick_range_e, 0.1))
+            ax_l.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+        else:
+            ax_l.set_ylabel("Energy Consumption (kWh)", labelpad=10,fontsize ='12')
+            ax_l.set_ylim([0,tick_range_e*100])
+            #ax_l.set_yticks(np.arange(0, tick_range_e, 0.1))
+            ax_l.yaxis.set_major_formatter(FormatStrFormatter('%.0f'))
 
 
         tight_layout_rect=(0, 0, 0.93, 1) # intentionally add some padding on the right hand side 
