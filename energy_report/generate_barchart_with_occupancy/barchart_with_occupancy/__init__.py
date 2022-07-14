@@ -24,7 +24,7 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
             tick_range_e = df_pivot_working_hours.sum(axis=1).max()*1.4
 
         if tick_range_o is None:
-            tick_range_o = df_pivot_working_hours.sum(axis=1).max()*1.4
+            tick_range_o = df_occupancy_cur['occupancy'].sum(axis=1).max()*1.4
 
         white_padding_below_bar = tick_range_e/100
         white_padding_below_bar_for_legend = white_padding_below_bar/3
