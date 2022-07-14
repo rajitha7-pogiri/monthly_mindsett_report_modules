@@ -24,11 +24,11 @@ def import_occupancy(db, site_name, period_current,
 
     df_occupancy = pd.DataFrame(listTables, columns=selected_columns)
 
-    df_occupancy['month']=pd.to_datetime(df_occupancy.date).dt.month
-    df_occupancy['Date']=pd.to_datetime(df_occupancy.date).dt.day
-    df_occupancy=df_occupancy.set_index("Date").sort_index()
-    df_occupancy_fixed=df_occupancy.drop(columns=['date'])
+    # df_occupancy['month']=pd.to_datetime(df_occupancy.date).dt.month
+    # df_occupancy['Date']=pd.to_datetime(df_occupancy.date).dt.day
+    df_occupancy=df_occupancy.set_index("date").sort_index()
+    # df_occupancy_fixed=df_occupancy.drop(columns=['date'])
 
-    df_occupancy_cur =  df_occupancy_fixed # To select particular month
+    # df_occupancy_cur =  df_occupancy_fixed # To select particular month
     
-    return df_occupancy_cur
+    return df_occupancy

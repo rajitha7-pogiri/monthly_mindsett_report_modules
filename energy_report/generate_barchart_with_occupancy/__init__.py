@@ -26,6 +26,7 @@ def generate_barchart_with_occupancy(db_occupancy, site_name, df_meta_with_value
     if occupancy_available: 
         # import occupancy data
         df_occupancy_cur = import_occupancy(db_occupancy, site_name, period_current)
+        print("df_occupancy_cur: ", df_occupancy_cur.info())
     else:
         df_occupancy_cur = None
 
