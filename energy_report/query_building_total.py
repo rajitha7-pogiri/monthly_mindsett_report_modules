@@ -20,5 +20,7 @@ def query_building_total(db,start_time,end_time,building_name,organization=None)
     query = f"""select * from {db.table_name_building_total} where {statement_full} and {time_period};"""
 
     df_meta_with_value = pd.read_sql_query(query, con=conn)
+
+    print(df_meta_with_value.info())
     
     return df_meta_with_value

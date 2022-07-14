@@ -56,11 +56,6 @@ def energy_report(cf):
                                                     weekend=cf.weekend, 
                                                     working_end_time=cf.working_end_time, 
                                                     working_start_time=cf.working_start_time)
-                                                
-    df_meta_with_value_building = query_building_total(cf.postgresdb, 
-                                                       start_time=cf.start_time_co2_barchart,
-                                                       end_time=cf.end_time, 
-                                                       building_name = cf.site_name)
 
     df_meta_with_value_building = enriching_time_features(df_meta_with_value_building,
                                                     period_freq=cf.period_freq)
