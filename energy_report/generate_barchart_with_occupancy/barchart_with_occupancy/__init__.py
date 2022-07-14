@@ -56,7 +56,7 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
                 # the right y axis
                 ax_r = ax_l.twinx() # instantiate a second axes that shares the same x-axis
                 ax_r.set_ylabel("People Registered", labelpad=10, fontsize ='12')
-                ax_r.set_ylim([-5,tick_range_e])
+                ax_r.set_ylim([0,tick_range_e])
                 ax_r.plot(df_occupancy_cur['occupancy'], color= 'k', lw=0.6, ls='dashed', marker=".", ms=6, mec="k", label='Occupancy')
                 ax_r.legend(loc='upper right', bbox_to_anchor=(0.97, 0.98))
 
