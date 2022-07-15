@@ -60,6 +60,8 @@ def energy_report(cf):
     df_meta_with_value_building = enriching_time_features(df_meta_with_value_building,
                                                     period_freq=cf.period_freq)
 
+    print('df_meta_with_value_building.out_of_hours.unique(): ', df_meta_with_value_building.out_of_hours.unique())
+
     generate_insight_statements(cf.postgresdb, df_meta_with_value)
 
     generate_piechart(df_meta_with_value, cf.asset_group)
