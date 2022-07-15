@@ -43,6 +43,7 @@ def energy_report(cf):
                                                         exception=cf.exception,
                                     meta_columns_for_join=cf.meta_columns_for_join,
                                     iot_columns_for_join=cf.iot_columns_for_join)
+
         df_meta_with_value_building = query_building_total(cf.postgresdb, 
                                                        start_time=cf.start_time_co2_barchart,
                                                        end_time=cf.end_time, 
@@ -58,7 +59,10 @@ def energy_report(cf):
                                                     working_start_time=cf.working_start_time)
 
     df_meta_with_value_building = enriching_time_features(df_meta_with_value_building,
-                                                    period_freq=cf.period_freq)
+                                                    period_freq=cf.period_freq,
+                                                    weekend=cf.weekend, 
+                                                    working_end_time=cf.working_end_time, 
+                                                    working_start_time=cf.working_start_time)
 
     print('df_meta_with_value_building.out_of_hours.unique(): ', df_meta_with_value_building.out_of_hours.unique())
 
@@ -72,7 +76,7 @@ def energy_report(cf):
 
     generate_co2_barchart(df_meta_with_value_building)
 
-    try: # Handel the case where insights statement is not provided
+    try: # handle the case where insights statement is not provided
         generate_report(cf.site_name, statements_list=cf.insight_statements, organisation=cf.organisation)
     except:
         generate_report(cf.site_name, organisation=cf.organisation)
