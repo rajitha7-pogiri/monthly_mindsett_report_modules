@@ -18,6 +18,7 @@ def preprocessing_for_barchart(df_meta_with_value, reading_interval_in_mins=10):
     period_current = df_grouped_working_hours_multiple_period_unstack.columns[-1]
     df_grouped_working_hours = df_grouped_working_hours_multiple_period_unstack.loc[:, period_current]
 
+    # todo: fill missing group index
     df_pivot_working_hours_sorted = df_grouped_working_hours.unstack(['out_of_hours']).sort_index(axis=1,level=1, ascending=False)
     
     return df_pivot_working_hours_sorted

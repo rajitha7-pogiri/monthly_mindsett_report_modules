@@ -20,6 +20,8 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
         # handle the issue that part of a day has NaN value
         df_pivot_working_hours.fillna(0, inplace=True)
+        # handle the issue that part of a day has negative value
+        df_pivot_working_hours[df_pivot_working_hours < 0] = 0
 
         df_pivot_working_hours.reset_index(drop=True, inplace=True)
 
