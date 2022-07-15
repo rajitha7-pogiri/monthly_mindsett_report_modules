@@ -51,15 +51,19 @@ def statement_for_avg_action_time(db, site_name, asset_name, start_time, end_tim
     df_on_off = pd.read_sql_query(f"""select * from {db.table_name_on_off} where {statement_full} and {time_restriction};""",
                                         con=conn)
 
-    df_on_off = enriching_time_features(df_on_off)
+    if df_on_off.shape[0] > 0: # handle the  case that no on/off data is returned
 
-    df_on_off_avg = df_on_off.groupby(['action', 'circuit_description']).time_of_day_in_float.mean()
+        df_on_off = enriching_time_features(df_on_off)
 
-    avg_start_time = str(timedelta(hours=df_on_off_avg[action][asset_name])).split('.')[0][:-3]
-    
-    start_finish_dict = {1: 'start', -1: 'finish'}
+        df_on_off_avg = df_on_off.groupby(['action', 'circuit_description']).time_of_day_in_float.mean()
 
-    statement = f"The average {start_finish_dict[action]} time for {asset_name} was {avg_start_time} over this period."
+        avg_start_time = str(timedelta(hours=df_on_off_avg[action][asset_name])).split('.')[0][:-3]
+        
+        start_finish_dict = {1: 'start', -1: 'finish'}
+
+        statement = f"The average {start_finish_dict[action]} time for {asset_name} was {avg_start_time} over this period."
+    else: 
+        statement = None
     
     return statement
 
@@ -85,7 +89,9 @@ def insight_statements(db,df_for_statements,df_meta_with_value):   #df_meta_with
         end_time_str = max_period.end_time
 
         statement_str_avg_action_time = statement_for_avg_action_time(db, site_name, asset_name, start_time_str, end_time_str,
-                                  action=1)
-        statements_list.append(statement_str_avg_action_time)
+                                  action=1) # None will be returned if no on/off data is found
+        if statement_str_avg_action_time  is not None: 
+
+            statements_list.append(statement_str_avg_action_time)
         
     return statements_list
