@@ -20,7 +20,7 @@ def generate_day_code_list(day_code_dict):
             year_str = " "+str(item.year)
         previous_day_year = item.year
 
-        day_code = weekday_str+day_str+month_str+year_str
+        day_code = weekday_str+day_str+'\n'+month_str+'\n'+year_str
 
         day_code_list.append(day_code)
         
