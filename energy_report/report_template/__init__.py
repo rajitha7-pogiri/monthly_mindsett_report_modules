@@ -66,7 +66,7 @@ class PDF(FPDF):
                 self.set_x(self.get_x() + space_width)
         
 
-def generate_report(cf,site_name, statements_list=None, organisation=None, report_file_name='Mindsett_Energy_Report.pdf', files_folder='./files/', figures_folder='./figures/'):
+def generate_report(site_name, statements_list=None, organisation=None, report_file_name='Mindsett_Energy_Report.pdf', files_folder='./files/', figures_folder='./figures/'):
 
     with open(files_folder+'statements.pkl', 'rb') as f:
         auto_statements_list = pickle.load(f)
@@ -106,9 +106,6 @@ def generate_report(cf,site_name, statements_list=None, organisation=None, repor
         pdf.cell(pdf.w - 30, 10, f'{site_name} - {lastMonth.strftime("%B %Y")} ', 0, 0, 'R')
     else:
         pdf.cell(pdf.w - 30, 10, f'{organisation} - {site_name} - {lastMonth.strftime("%B %Y")} ', 0, 0, 'R')
-
-    
-
 
     pdf.image(figures_folder+'consumption_by_assetclass_piechart_mindsett.png', 14, 55+69, 144)
     pdf.image(figures_folder+'Total_consumption_barchart_with_Co2.png', 142, 55+72, 57)
