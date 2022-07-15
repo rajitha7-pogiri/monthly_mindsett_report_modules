@@ -118,7 +118,7 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
 
         
         ax_l.tick_params(axis='x', which='major', pad=8)
-        top_index = df_pivot_working_hours.index.min() - 2
+        top_index = df_pivot_working_hours.index.min() - 1
         bot_index = df_pivot_working_hours.index.max() + 1
         ax.set_xlim([top_index, bot_index])
 
