@@ -21,9 +21,6 @@ def preprocessing_for_co2_barchart(df_meta_with_value,
 
     for indice in missing_group_index:
         df_grouped_working_hours_period.loc[indice] = 0
-    
-    print('df_meta_with_value: ', df_meta_with_value)
-    print('df_grouped_working_hours_period: ', df_grouped_working_hours_period)
 
     df_grouped_working_hours_period_unstacked = df_grouped_working_hours_period.unstack()
     df_grouped_working_hours_period_unstacked = df_grouped_working_hours_period_unstacked.sort_index()

@@ -83,6 +83,7 @@ def energy_and_occupancy_barchart_design(df_pivot_working_hours,
         bar_edgecolour = ['k','w']
         bar_fillcolour = ['k','w']
 
+        print("df_pivot_working_hours: ", df_pivot_working_hours)
 
         # bottom bar legend label
         ax_l.bar(df_pivot_working_hours.index, df_pivot_working_hours[bot_hours].fillna(0)-white_padding_below_bar_for_legend,

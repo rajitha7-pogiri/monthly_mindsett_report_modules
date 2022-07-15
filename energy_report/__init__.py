@@ -64,8 +64,6 @@ def energy_report(cf):
                                                     working_end_time=cf.working_end_time, 
                                                     working_start_time=cf.working_start_time)
 
-    print('df_meta_with_value_building.out_of_hours.unique(): ', df_meta_with_value_building.out_of_hours.unique())
-
     generate_insight_statements(cf.postgresdb, df_meta_with_value)
 
     generate_piechart(df_meta_with_value, cf.asset_group)
