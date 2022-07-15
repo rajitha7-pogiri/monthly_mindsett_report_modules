@@ -101,18 +101,12 @@ def generate_report(cf,site_name, statements_list=None, organisation=None, repor
     today = date.today()
     first = today.replace(day=1)
     lastMonth = first - timedelta(days=1)
-    lastWeek = first - timedelta(weeks=1)
+    
     if organisation is None:
-        if cf.period_freq == 'M':
-            pdf.cell(pdf.w - 30, 10, f'{site_name} - {lastMonth.strftime("%B %Y")} ', 0, 0, 'R')
-        elif cf.period_freq == 'W':
-            pdf.cell(pdf.w - 30, 10, f'{site_name} - {lastWeek.strftime("%W %Y")} ', 0, 0, 'R')   
+        pdf.cell(pdf.w - 30, 10, f'{site_name} - {lastMonth.strftime("%B %Y")} ', 0, 0, 'R')
     else:
-        if cf.period_freq == 'M':
-            pdf.cell(pdf.w - 30, 10, f'{organisation} - {site_name} - {lastMonth.strftime("%B %Y")} ', 0, 0, 'R')
-         
-        elif cf.period_freq == 'W':
-            pdf.cell(pdf.w - 30, 10, f'{organisation} - {site_name} - {lastWeek.strftime("%W %Y")} ', 0, 0, 'R')
+        pdf.cell(pdf.w - 30, 10, f'{organisation} - {site_name} - {lastMonth.strftime("%B %Y")} ', 0, 0, 'R')
+
     
 
 
