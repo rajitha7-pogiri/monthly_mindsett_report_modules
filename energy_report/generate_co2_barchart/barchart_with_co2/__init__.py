@@ -67,6 +67,8 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         x_ticks_labels.append("")
 
         df_grouped_working_hours_period_reset_index = df_grouped_working_hours_period_unstacked.reset_index(drop=True)
+
+        print('df_grouped_working_hours_period_reset_index: ', df_grouped_working_hours_period_reset_index)
         
 
         # bottom bar legend label
