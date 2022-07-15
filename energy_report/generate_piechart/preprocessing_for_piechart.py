@@ -22,7 +22,12 @@ def preprocessing_for_piechart(df_meta_with_value,
     # using the 'period' information from the dataframe
     period_range = df_pivot_asset_group_by_period.columns
     period_current = period_range[-1]
-    period_tobe_compared = period_range[-2]
+    
+     # for avoiding the case that we don't have data for the previous week
+    if len(period_range) < 2:
+        period_tobe_compared = period_range[-1]
+    else:
+        period_tobe_compared = period_range[-2]
 
     df_pivot_asset_group_by_period_renamed = df_pivot_asset_group_by_period.loc[:,period_current].to_frame().rename(columns={period_current: "sum"})
     df_pivot_asset_group_by_period_renamed["sum_pre"] = df_pivot_asset_group_by_period.loc[:,period_tobe_compared]
