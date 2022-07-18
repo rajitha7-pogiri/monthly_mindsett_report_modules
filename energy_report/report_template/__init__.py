@@ -92,7 +92,7 @@ def generate_report(site_name, period, statements_list=None, organisation=None, 
     # Line break
     pdf.ln(17)
 
-    color_rgb = ImageColor.getcolor(cd["aquablue"], "RGB")
+    color_rgb = ImageColor.getcolor(cd["Mindsett Blue"], "RGB")
     color_hsv = colorsys.rgb_to_hsv(*color_rgb)
     color_rgb_changed = colorsys.hsv_to_rgb(color_hsv[0], color_hsv[1]*1.2, color_hsv[2]*0.85)
     pdf.set_text_color(*color_rgb_changed)
