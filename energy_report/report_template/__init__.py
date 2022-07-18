@@ -15,7 +15,7 @@ class PDF(FPDF):
 
     def header(self):
         #Logo
-        self.image(assets_folder+'LetterHead - header - Mindsett.png', 0, 0, self.w)
+        self.image(assets_folder+'LetterHead - header - Mindsett_weekly.png', 0, 0, self.w)
         #Fontsize and type
         self.set_font('Arial', 'B', 15)
         self.image(assets_folder+"mindsett_logo_white_transparent.png", 15, 15, 45)
@@ -23,7 +23,7 @@ class PDF(FPDF):
     def footer(self):
         #Logo
         footer_height = 32
-        img_path = assets_folder+'LetterHead - Footer - Mindsett.png'
+        img_path = assets_folder+'LetterHead - Footer - Mindsett_weekly.png'
         footer_width = 210
         self.image(img_path, 0, self.h-footer_height, footer_width)
         self.set_font('Arial', 'B', 15)
@@ -74,9 +74,9 @@ def generate_report(site_name, period, statements_list=None, organisation=None, 
     pdf = PDF()
     pdf.add_page()
 
-    pdf.image(assets_folder+'Screenshot_by_date.png', 0.3, 70, 8)
-    pdf.image(assets_folder+'Screenshot_by_asset.png', 0.3, 70+65, 8)
-    pdf.image(assets_folder+'Screenshot_insights.png', 0.3, 70+130, 8)
+    pdf.image(assets_folder+'Screenshot_by_date_weekly.png', 0.3, 70, 8)
+    pdf.image(assets_folder+'Screenshot_by_asset_weekly.png', 0.3, 70+65, 8)
+    pdf.image(assets_folder+'Screenshot_insights_weekly.png', 0.3, 70+130, 8)
     pdf.set_font('Arial', "B", 28)
     # Line break
     pdf.ln(17)

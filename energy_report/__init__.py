@@ -80,5 +80,3 @@ def energy_report(cf):
         generate_report(cf.site_name, current_period, statements_list=cf.insight_statements, organisation=cf.organisation)
     except:
         generate_report(cf.site_name, current_period, organisation=cf.organisation)
-
-
