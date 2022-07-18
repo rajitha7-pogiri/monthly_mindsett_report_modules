@@ -8,7 +8,7 @@ def statement_for_biggest_ooh(df_asset_group_period_sum_others, number_for_pick_
 
     df_ooh_biggest = df_asset_group_period_sum_others.head(number_for_pick_out+1).tail(number_for_pick_out).drop(columns=['gt_4pct','sum_for_sort'])
     
-    statement = f"""The biggest out-of-hour consumers of energy are """
+    statement = f"""The biggest out-of-hours consumers of energy are """
 
     for index, item in enumerate(df_ooh_biggest['sum'].round().astype('int').iteritems()):
 
@@ -29,10 +29,10 @@ def statement_for_total_ooh(df_asset_group_period_sum_others, row_index_for_tota
             statement_direction = "up"
         else:
             statement_direction = "down"
-        statement = f"""The out-of-hour use had gone {statement_direction} by {sub_pct_abs_value}% compared to previous period."""
+        statement = f"""The out-of-hours use had gone {statement_direction} by {sub_pct_abs_value}% compared to previous period."""
 
     else:   
-        statement = f"""The out-of-hour use had been similar to previous period."""
+        statement = f"""The out-of-hours use has been similar to the previous period."""
         
     return statement
 
