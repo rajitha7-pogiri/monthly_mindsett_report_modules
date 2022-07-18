@@ -29,7 +29,7 @@ def statement_for_total_ooh(df_asset_group_period_sum_others, row_index_for_tota
             statement_direction = "up"
         else:
             statement_direction = "down"
-        statement = f"""The out-of-hours use had gone {statement_direction} by {sub_pct_abs_value}% compared to previous period."""
+        statement = f"""The out-of-hours use has gone {statement_direction} by {sub_pct_abs_value}% compared to the previous period."""
 
     else:   
         statement = f"""The out-of-hours use has been similar to the previous period."""
