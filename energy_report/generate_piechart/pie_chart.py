@@ -46,8 +46,10 @@ def generate_legend_labels_for_piechart_with_triangle(df_asset_class_monthly_sum
         label_arrow_pad = ' '
         label_arrow = label_arrow_pad + label_arrow_str
 
-
-        label_index = index
+        if len(index) > 15:
+            label_index = index[:12]+"..."
+        else:   
+            label_index = index
 
         label = label_kwh + label_space_short + label_arrow+ " " +label_pct_str + r"%" + label_space_short + label_pct_pad + label_index
 
