@@ -15,8 +15,8 @@ def preprocessing_for_co2_barchart(df_meta_with_value,
     period_max = df_meta_with_value[period_column].max()
     expected_periods = [period_max-i for i in range(no_of_month)]
     expected_working_hours = [True, False]
-    full_group_index = pd.Index(product(expected_periods, expected_working_hours))
-    missing_group_index = full_group_index.drop(df_grouped_working_hours_period.index)
+    expected_group_index = pd.Index(product(expected_periods, expected_working_hours))
+    missing_group_index = expected_group_index.drop(df_grouped_working_hours_period.index)
 
     for indice in missing_group_index:
         df_grouped_working_hours_period.loc[indice] = 0

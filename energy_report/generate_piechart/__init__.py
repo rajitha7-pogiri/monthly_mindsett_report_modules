@@ -15,4 +15,4 @@ def generate_piechart(df_meta_with_value, asset_group,
     Path(directory_to_savefig).mkdir(parents=True, exist_ok=True)
 
     piechart_comparison_design(df_for_piechart, ncol=1,loc='center right')
-    plt.savefig(directory_to_savefig+"consumption_by_assetclass_piechart_mindsett.png",format='png', dpi=200)
+    plt.savefig(directory_to_savefig+"consumption_by_assetclass_piechart_mindsett.jpg",format='jpg', dpi=200)
