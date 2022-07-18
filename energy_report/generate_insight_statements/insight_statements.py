@@ -61,7 +61,7 @@ def statement_for_avg_action_time(db, site_name, asset_name, start_time, end_tim
         
         start_finish_dict = {1: 'start', -1: 'finish'}
 
-        statement = f"The average {start_finish_dict[action]} time for the {asset_name} over this period was {avg_start_time}."
+        statement = f"{avg_start_time} was the The average {start_finish_dict[action]} time for the {asset_name} over this period."
     else: 
         statement = None
     
