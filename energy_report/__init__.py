@@ -74,9 +74,11 @@ def energy_report(cf):
 
     generate_co2_barchart(df_meta_with_value_building)
 
+    current_period = df_meta_with_value.period.max()
+
     try: # handle the case where insights statement is not provided
-        generate_report(cf.site_name, statements_list=cf.insight_statements, organisation=cf.organisation)
+        generate_report(cf.site_name, current_period, statements_list=cf.insight_statements, organisation=cf.organisation)
     except:
-        generate_report(cf.site_name, organisation=cf.organisation)
+        generate_report(cf.site_name, current_period, organisation=cf.organisation)
 
 
