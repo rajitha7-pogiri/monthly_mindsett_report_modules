@@ -6,7 +6,18 @@ from datetime import date, timedelta
 
 import colorsys
 
-cd = {"tomato": '#FF836A',"aquablue": '#6DC2B3',"peach": '#FED6D2',"darkgrey": '#9F9D9C',"potato": '#FEF8C8',"cyan": '#B6E4E1'}
+cd = {"tomato": '#FF836A',
+      "aquablue": '#6DC2B3',
+      "peach": '#FED6D2',
+      "darkgrey": '#9F9D9C',
+      "potato": '#FEF8C8',
+      "cyan": '#B6E4E1',
+     "Mindsett Blue": '#132F57',
+     "Black": '#000000',
+     "Mindsett Grey":'#b3b3b3',
+     "White": '#ffffff',
+     "Mindsett Green": '#00A19A',
+     "Mindsett Red":'#E6354C'}
 
 assets_folder = os.path.join(os.path.dirname(__file__), 'assets/')
 figures_folder = os.path.join(os.getcwd(), 'figures/')
@@ -31,7 +42,7 @@ class PDF(FPDF):
         self.set_y(self.h-footer_height + 5)
         self.set_x(20)
         self.set_font('Arial', "I", 8)
-        color_rgb = ImageColor.getcolor(cd["darkgrey"], "RGB")
+        color_rgb = ImageColor.getcolor(cd["Mindsett Blue"], "RGB")
         color_hsv = colorsys.rgb_to_hsv(*color_rgb)
         color_rgb_changed = colorsys.hsv_to_rgb(color_hsv[0], color_hsv[1], color_hsv[2])
         self.set_text_color(*color_rgb_changed)
