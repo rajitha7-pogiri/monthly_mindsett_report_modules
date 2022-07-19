@@ -78,17 +78,19 @@ def insight_statements(db,df_for_statements,df_meta_with_value):   #df_meta_with
     statements_list.append(statement_str_biggest_ooh)
 
     # preparation for the third statement
+
     asset_name = 'Pizza Oven'
     
-
-    if asset_name in df_meta_with_value.circuit_description.unique().strip():
-
+    
+    if asset_name in df_meta_with_value.circuit_description.unique():
+        
+        asset_name.strip()
         site_name = df_meta_with_value.site_name.unique()[0]
         max_period = df_meta_with_value.index.tz_convert(None).to_period('M').unique().max()
         start_time_str = max_period.start_time
         end_time_str = max_period.end_time
 
-        statement_str_avg_action_time = statement_for_avg_action_time(db, site_name, asset_name, start_time_str, end_time_str,
+        statement_str_avg_action_time = statement_for_avg_action_time(db, site_name, asset_name.strip(), start_time_str, end_time_str,
                                   action=1) # None will be returned if no on/off data is found
         if statement_str_avg_action_time  is not None: 
 
