@@ -79,7 +79,7 @@ def insight_statements(db,df_for_statements,df_meta_with_value):   #df_meta_with
 
     # preparation for the third statement
 
-    asset_name = 'Pizza Oven'
+    asset_name = 'Pizza Oven '
     
     
     if asset_name in df_meta_with_value.circuit_description.unique():
