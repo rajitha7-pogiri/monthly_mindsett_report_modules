@@ -57,7 +57,7 @@ def statement_for_avg_action_time(db, site_name, asset_name, start_time, end_tim
 
         df_on_off_avg = df_on_off.groupby(['action', 'circuit_description']).time_of_day_in_float.mean()
 
-        avg_start_time = str(timedelta(hours=df_on_off_avg[action][asset_name].strftime(date_format = '%I:%M:%S %p'))).split('.')[0][:-3]
+        avg_start_time = str(timedelta(hours=df_on_off_avg[action][asset_name].str.strip(), format='%p')).split('.')[0][:-3]
         
         start_finish_dict = {1: 'start', -1: 'finish'}
 
