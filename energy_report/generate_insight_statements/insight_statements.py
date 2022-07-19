@@ -78,7 +78,7 @@ def insight_statements(db,df_for_statements,df_meta_with_value):   #df_meta_with
     statements_list.append(statement_str_biggest_ooh)
 
     # preparation for the third statement
-    asset_name = 'Pizza Oven'.strip()
+    asset_name = 'Pizza Oven '.strip()
     
 
     if asset_name in df_meta_with_value.circuit_description.unique():
