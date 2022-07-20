@@ -50,6 +50,7 @@ def statement_for_avg_action_time(db, site_name, asset_name, start_time, end_tim
 
     df_on_off = pd.read_sql_query(f"""select * from {db.table_name_on_off} where {statement_full} and {time_restriction};""",
                                         con=conn)
+    print('df_on_off: ', df_on_off)
 
     df_on_off.circuit_description = df_on_off.circuit_description.str.lstrip().str.rstrip("0123456789 ")
 
