@@ -135,14 +135,14 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
 
         # adding icons to x axis
 
-        image_zoom = 0.05
-        image_x = - x_pad_on_left
+        image_zoom = 0.45
+        image_x = 5
         image_y = 0
         image_name = icon_filename
 
         icon = mpimg.imread(assets_folder + image_name)
         ibox = OffsetImage(icon, zoom=image_zoom)
-        readingicon = AnnotationBbox(ibox, (image_x, image_y), xybox=(1., 1.), frameon = False)
+        readingicon = AnnotationBbox(ibox, (image_x, image_y), xybox=(1., -1.), frameon = False)
         ax.add_artist(readingicon)
 
         ax_l.legend(loc='upper left', bbox_to_anchor=(-0,1.02,1,0.2),fontsize=9,ncol=2)
