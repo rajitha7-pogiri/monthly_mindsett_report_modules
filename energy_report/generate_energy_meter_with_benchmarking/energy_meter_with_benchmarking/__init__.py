@@ -70,7 +70,7 @@ def energy_meter_design(ax, consumption_mwh_cur, consumption_mwh_pre,
                                va=u'bottom', color=re_c, ha=u'center', fontweight="bold", fontsize='18')
 
     # reading - energy - text - monthly change
-    rt_x = re_x + 0.6
+    rt_x = re_x + 0.65
     rt_y = re_y + 0.02
 
     change_value = (consumption_mwh_cur - consumption_mwh_pre) / consumption_mwh_pre
