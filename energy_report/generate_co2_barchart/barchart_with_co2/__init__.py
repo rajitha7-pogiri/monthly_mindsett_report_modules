@@ -142,7 +142,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         image_y = 0 # will not affect the image position
         image_name = icon_filename
         
-        xybox_x = 7.2
+        xybox_x = 7.9
         xybox_y = -max(ylim)/3.2
 
         icon = mpimg.imread(assets_folder + image_name)
