@@ -51,7 +51,7 @@ def statement_for_avg_action_time(db, site_name, asset_name, start_time, end_tim
     df_on_off = pd.read_sql_query(f"""select * from {db.table_name_on_off} where {statement_full} and {time_restriction};""",
                                         con=conn)
 
-    df_on_off.circuit_description = df_on_off.circuit_description.str.strip()
+    df_on_off.circuit_description = df_on_off.circuit_description.str.lstrip().str.rstrip("0123456789 ")
 
     if df_on_off.shape[0] > 0: # handle the  case that no on/off data is returned
 
@@ -99,7 +99,7 @@ def insight_statements(db,df_for_statements,df_meta_with_value):   #df_meta_with
     asset_name = 'Pizza Oven'
     
 
-    if asset_name in df_meta_with_value.circuit_description.str.strip().unique():
+    if asset_name in df_meta_with_value.circuit_description.str.lstrip().str.rstrip("0123456789 ").unique():
 
         site_name = df_meta_with_value.site_name.unique()[0]
         max_period = df_meta_with_value.index.tz_convert(None).to_period('M').unique().max()

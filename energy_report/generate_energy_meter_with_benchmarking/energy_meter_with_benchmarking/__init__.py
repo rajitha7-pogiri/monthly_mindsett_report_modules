@@ -129,8 +129,7 @@ def energy_meter_design(ax, consumption_mwh_cur, consumption_mwh_pre,
     ## reading - billing
     re_y = 0.23
     reading = consumption_mwh_cur * conv_mwh_pnd
-    #reading_value = f"{reading:,.2f}' MWh"
-    reading_value = f"{reading:,.2f}".replace(".", ". ")
+    reading_value = f"{reading:,.2f}".replace(".", ". ") 
     image_name = 'pound-sterling.png'
 
     # reading - billing - icon
