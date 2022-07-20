@@ -60,10 +60,27 @@ def statement_for_avg_action_time(db, site_name, asset_name, start_time, end_tim
         df_on_off_avg = df_on_off.groupby(['action', 'circuit_description']).time_of_day_in_float.mean()
 
         avg_start_time = str(timedelta(hours=df_on_off_avg[action][asset_name])).split('.')[0][:-3]
+
+        # AM/PM to the time
+
+        time_list = avg_start_time.split(":")
+
+        hour_digit = int(time_list[0])
+        if hour_digit < 12:
+            letter = " AM" 
+        else: 
+            letter = " PM"
+            if hour_digit >= 13:
+                time_list[0] = str(hour_digit-12)
+
+        time_list.append(letter)
+        time_list[1] = ":"+time_list[1]
+        avg_start_time_with_letter = "".join(time_list)   
         
         start_finish_dict = {1: 'start', -1: 'finish'}
 
-        statement = f"{avg_start_time} was the average {start_finish_dict[action]} time for the {asset_name} over this period."
+
+        statement = f"{avg_start_time_with_letter} was the average {start_finish_dict[action]} time for the {asset_name} over this period."
     else: 
         statement = None
     
