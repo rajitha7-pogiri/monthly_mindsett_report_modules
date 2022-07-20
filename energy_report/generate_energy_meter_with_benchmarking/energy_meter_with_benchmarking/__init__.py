@@ -67,7 +67,7 @@ def energy_meter_design(ax, consumption_mwh_cur, consumption_mwh_pre,
     rt_x = re_x + 0.342 + 0.03
     rt_y = re_y
     readingtext = mpltext.Text(x=fx+rt_x*fs, y=fy+rt_y*fs, text=f'{reading_value}', 
-                               va=u'bottom', color=re_c, ha=u'right', fontweight="bold", fontsize='18')
+                               va=u'bottom', color=re_c, ha=u'center', fontweight="bold", fontsize='18')
 
     # reading - energy - text - monthly change
     rt_x = re_x + 0.473
