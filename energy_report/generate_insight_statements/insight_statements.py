@@ -51,6 +51,8 @@ def statement_for_avg_action_time(db, site_name, asset_name, start_time, end_tim
     df_on_off = pd.read_sql_query(f"""select * from {db.table_name_on_off} where {statement_full} and {time_restriction};""",
                                         con=conn)
 
+    df_on_off.circuit_description = df_on_off.circuit_description.str.strip()
+
     if df_on_off.shape[0] > 0: # handle the  case that no on/off data is returned
 
         df_on_off = enriching_time_features(df_on_off)
@@ -79,17 +81,18 @@ def insight_statements(db,df_for_statements,df_meta_with_value):   #df_meta_with
 
     # preparation for the third statement
 
-    asset_name = 'Pizza Oven' or 'Pizza Oven '
     
+    asset_name = 'Pizza Oven'
     
-    if asset_name in df_meta_with_value.circuit_description.unique():
-                
+
+    if asset_name in df_meta_with_value.circuit_description.str.strip().unique():
+
         site_name = df_meta_with_value.site_name.unique()[0]
         max_period = df_meta_with_value.index.tz_convert(None).to_period('M').unique().max()
         start_time_str = max_period.start_time
         end_time_str = max_period.end_time
 
-        statement_str_avg_action_time = statement_for_avg_action_time(db, site_name, asset_name.strip(), start_time_str, end_time_str,
+        statement_str_avg_action_time = statement_for_avg_action_time(db, site_name, asset_name, start_time_str, end_time_str,
                                   action=1) # None will be returned if no on/off data is found
         if statement_str_avg_action_time  is not None: 
 
