@@ -70,7 +70,7 @@ def energy_meter_design(ax, consumption_mwh_cur, consumption_mwh_pre,
                                va=u'bottom', color=re_c, ha=u'center', fontweight="bold", fontsize='18')
 
     # reading - energy - text - monthly change
-    rt_x = re_x + 0.473
+    rt_x = re_x + 0.673
     rt_y = re_y + 0.02
 
     change_value = (consumption_mwh_cur - consumption_mwh_pre) / consumption_mwh_pre
@@ -82,7 +82,7 @@ def energy_meter_design(ax, consumption_mwh_cur, consumption_mwh_pre,
 
     change_in_percentage = change_arrow_str + " " + str(int(abs(change_value)*100)) + r"$\;$"+"%"
     text_percentage = mpltext.Text(x=fx+rt_x*fs, y=fy+rt_y*fs, text=f'{change_in_percentage}', 
-                                   va=u'baseline', color='k', ha=u'left', fontweight="bold", fontsize='18')
+                                   va=u'baseline', color='k', ha=u'center', fontweight="bold", fontsize='18')
     ax.add_artist(text_percentage)
 
     # horizontal line to separate the different readings
