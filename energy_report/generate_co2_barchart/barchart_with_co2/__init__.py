@@ -57,11 +57,13 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
             ax_l.set_xlabel("Month", labelpad= 13,fontsize ='11')
             plt.xticks(rotation=45)
             icon_filename = "letter-month.png"
+            y_label = "Monthly consumption (MWh)"
         else :
             x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%W").tolist()   #week number
             ax_l.set_xlabel("Week Number", labelpad= 13,fontsize ='11')
             plt.xticks(rotation=0)
             icon_filename = "letter-week.png"
+            y_label = "Weekly consumption (MWh)"
 
         x_ticks_labels.insert(0,"")
         x_ticks_labels.append("")
@@ -84,7 +86,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
                  width=0.7, lw=1.5, edgecolor=bar_edgecolour[0], color=bar_fillcolour[1])
 
 
-        ax_l.set_ylabel("Total consumption (MWh)", labelpad= 13,fontsize ='11')
+        ax_l.set_ylabel(y_label, labelpad= 13,fontsize ='11')
         ax_l.yaxis.tick_right()
         ax_l.yaxis.set_label_position("right")
 
@@ -131,18 +133,21 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         
         
         # C02 insertion
-        co2_design(df_grouped_working_hours_period_reset_index)
+        #co2_design(df_grouped_working_hours_period_reset_index)
 
         # adding icons to x axis
 
-        image_zoom = 0.45
-        image_x = 5
-        image_y = 0
+        image_zoom = 0.045
+        image_x = 0 # will not affect the image position
+        image_y = 0 # will not affect the image position
         image_name = icon_filename
+        
+        xybox_x = 8.2
+        xybox_y = -max(ylim)/3.2
 
         icon = mpimg.imread(assets_folder + image_name)
         ibox = OffsetImage(icon, zoom=image_zoom)
-        readingicon = AnnotationBbox(ibox, (image_x, image_y), xybox=(1., -1.), frameon = False)
+        readingicon = AnnotationBbox(ibox, (image_x, image_y), xybox=(xybox_x, xybox_y), frameon = False)
         ax.add_artist(readingicon)
 
         ax_l.legend(loc='upper left', bbox_to_anchor=(-0,1.02,1,0.2),fontsize=9,ncol=2)
