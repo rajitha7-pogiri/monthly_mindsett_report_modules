@@ -54,8 +54,7 @@ def statement_for_avg_action_time(db, site_name, asset_name, start_time, end_tim
     df_on_off.circuit_description = df_on_off.circuit_description.str.lstrip().str.rstrip("0123456789 ")
 
     df_on_off_selected = df_on_off.loc[df_on_off.circuit_description==asset_name]
-
-    print('df_on_off_selected: ', df_on_off_selected)
+    
 
     if df_on_off_selected.shape[0] > 0: # handle the  case that no on/off data is returned
 

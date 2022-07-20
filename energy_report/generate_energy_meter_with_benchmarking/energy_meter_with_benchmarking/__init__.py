@@ -80,7 +80,7 @@ def energy_meter_design(ax, consumption_mwh_cur, consumption_mwh_pre,
     else:
         change_arrow_str = r'$\:\!\triangledown\:\!$'
 
-    change_in_percentage = change_arrow_str + "  " + str(int(abs(change_value)*100)) + r"$\;$"+"%"
+    change_in_percentage = change_arrow_str + " " + str(int(abs(change_value)*100)) + r"$\;$"+"%"
     text_percentage = mpltext.Text(x=fx+rt_x*fs, y=fy+rt_y*fs, text=f'{change_in_percentage}', 
                                    va=u'baseline', color='k', ha=u'left', fontweight="bold", fontsize='18')
     ax.add_artist(text_percentage)
