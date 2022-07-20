@@ -62,8 +62,7 @@ def energy_meter_design(ax, consumption_mwh_cur, consumption_mwh_pre,
 
     ## reading - energy 
     reading = consumption_mwh_cur
-    #reading_value = f"{reading:1.1f} MWh"
-    reading_value = f"{reading:,.2f}' MWh"
+    reading_value = f"{reading:1.1f} MWh"
     # reading - energy - text - monthly total
     rt_x = re_x + 0.342 + 0.03
     rt_y = re_y
@@ -130,7 +129,8 @@ def energy_meter_design(ax, consumption_mwh_cur, consumption_mwh_pre,
     ## reading - billing
     re_y = 0.23
     reading = consumption_mwh_cur * conv_mwh_pnd
-    reading_value = f"{reading:1.2f}".replace(".", ". ")
+    #reading_value = f"{reading:,.2f}' MWh"
+    reading_value = f"{reading:,.2f}".replace(".", ". ")
     image_name = 'pound-sterling.png'
 
     # reading - billing - icon
