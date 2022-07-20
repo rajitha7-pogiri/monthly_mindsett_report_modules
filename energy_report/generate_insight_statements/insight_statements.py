@@ -50,17 +50,20 @@ def statement_for_avg_action_time(db, site_name, asset_name, start_time, end_tim
 
     df_on_off = pd.read_sql_query(f"""select * from {db.table_name_on_off} where {statement_full} and {time_restriction};""",
                                         con=conn)
-    print('df_on_off: ', df_on_off)
 
     df_on_off.circuit_description = df_on_off.circuit_description.str.lstrip().str.rstrip("0123456789 ")
 
-    if df_on_off.shape[0] > 0: # handle the  case that no on/off data is returned
+    df_on_off_selected = df_on_off.loc[df_on_off.circuit_description==asset_name]
 
-        df_on_off = enriching_time_features(df_on_off)
+    print('df_on_off_selected: ', df_on_off_selected)
 
-        df_on_off_avg = df_on_off.groupby(['action', 'circuit_description']).time_of_day_in_float.mean()
+    if df_on_off_selected.shape[0] > 0: # handle the  case that no on/off data is returned
 
-        avg_start_time = str(timedelta(hours=df_on_off_avg[action][asset_name])).split('.')[0][:-3]
+        df_on_off_selected = enriching_time_features(df_on_off_selected)
+
+        df_on_off_avg = df_on_off_selected.groupby(['action']).time_of_day_in_float.mean()
+
+        avg_start_time = str(timedelta(hours=df_on_off_avg[action])).split('.')[0][:-3]
 
         # AM/PM to the time
 
