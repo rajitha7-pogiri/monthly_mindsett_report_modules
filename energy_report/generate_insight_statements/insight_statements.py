@@ -15,7 +15,7 @@ def statement_for_biggest_ooh(df_asset_group_period_sum_others, number_for_pick_
         statement_item = "  "+str(index+1)+'. '+item[0]+' '+str(item[1])+'kwh,'
         statement += statement_item
 
-    statement = statement[:-2]+' over the previous period.'
+    statement = statement[:-1]+' over the previous period.'
     
     return statement
 
