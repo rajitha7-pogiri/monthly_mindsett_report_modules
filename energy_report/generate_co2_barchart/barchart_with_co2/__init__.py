@@ -56,12 +56,12 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
             x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%b %y").tolist()
             ax_l.set_xlabel("Month", labelpad= 13,fontsize ='11')
             plt.xticks(rotation=45)
-            icon_filename = "month.png"
+            icon_filename = "letter-month.png"
         else :
             x_ticks_labels = df_grouped_working_hours_period_unstacked.index.strftime("%W").tolist()   #week number
             ax_l.set_xlabel("Week Number", labelpad= 13,fontsize ='11')
             plt.xticks(rotation=0)
-            icon_filename = "week.png"
+            icon_filename = "letter-week.png"
 
         x_ticks_labels.insert(0,"")
         x_ticks_labels.append("")
@@ -142,7 +142,7 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
 
         icon = mpimg.imread(assets_folder + image_name)
         ibox = OffsetImage(icon, zoom=image_zoom)
-        readingicon = AnnotationBbox(ibox, (image_x, image_y), frameon = False)
+        readingicon = AnnotationBbox(ibox, (image_x, image_y), xybox=(1., 1.), frameon = False)
         ax.add_artist(readingicon)
 
         ax_l.legend(loc='upper left', bbox_to_anchor=(-0,1.02,1,0.2),fontsize=9,ncol=2)
