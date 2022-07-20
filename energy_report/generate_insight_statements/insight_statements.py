@@ -12,7 +12,7 @@ def statement_for_biggest_ooh(df_asset_group_period_sum_others, number_for_pick_
 
     for index, item in enumerate(df_ooh_biggest['sum'].round().astype('int').iteritems()):
 
-        statement_item = str(index+1)+'. '+item[0]+' '+str(item[1])+'kwh,'
+        statement_item = "  "+str(index+1)+'. '+item[0]+' '+str(item[1])+'kwh,'
         statement += statement_item
 
     statement = statement[:-2]+' over the previous period.'
@@ -93,9 +93,6 @@ def insight_statements(db,df_for_statements,df_meta_with_value):   #df_meta_with
     statement_str_total_ooh = statement_for_total_ooh(df_for_statements)
     statements_list.append(statement_str_total_ooh)
 
-    statement_str_biggest_ooh = statement_for_biggest_ooh(df_for_statements)
-    statements_list.append(statement_str_biggest_ooh)
-
     # preparation for the third statement
 
     
@@ -114,5 +111,10 @@ def insight_statements(db,df_for_statements,df_meta_with_value):   #df_meta_with
         if statement_str_avg_action_time  is not None: 
 
             statements_list.append(statement_str_avg_action_time)
+
+    # Statement for biggest OOH
+
+    statement_str_biggest_ooh = statement_for_biggest_ooh(df_for_statements)
+    statements_list.append(statement_str_biggest_ooh)
         
     return statements_list
