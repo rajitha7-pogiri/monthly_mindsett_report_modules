@@ -77,8 +77,11 @@ def energy_meter_design(ax, consumption_mwh_cur, consumption_mwh_pre,
 
     if change_value > 0: 
         change_arrow_str = r'${\blacktriangle}$'
-    else:
+    elif change_value < 0:
         change_arrow_str = r'$\:\!\triangledown\:\!$'
+    else :
+        change_arrow_str = r'--'
+
 
     change_in_percentage = change_arrow_str + " " + str(int(abs(change_value)*100)) + r"$\;$"+"%"
     text_percentage = mpltext.Text(x=fx+rt_x*fs, y=fy+rt_y*fs, text=f'{change_in_percentage}', 
