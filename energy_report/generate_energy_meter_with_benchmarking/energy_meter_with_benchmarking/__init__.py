@@ -74,10 +74,11 @@ def energy_meter_design(ax, consumption_mwh_cur, consumption_mwh_pre,
     rt_y = re_y + 0.02
 
     change_value = (consumption_mwh_cur - consumption_mwh_pre) / consumption_mwh_pre
+    change_value_int = int(change_value*100)
 
-    if change_value > 0: 
+    if change_value_int > 0: 
         change_arrow_str = r'${\blacktriangle}$'
-    elif change_value < 0:
+    elif change_value_int < 0:
         change_arrow_str = r'$\:\!\triangledown\:\!$'
     else :
         change_arrow_str = r'--'
