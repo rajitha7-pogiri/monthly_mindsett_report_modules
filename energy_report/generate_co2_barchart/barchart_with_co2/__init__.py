@@ -151,4 +151,4 @@ def co2_barchart_design(df_grouped_working_hours_period_unstacked, ylim=None, to
         ax.add_artist(readingicon)
 
         ax_l.legend(loc='upper left', bbox_to_anchor=(-0,1.02,1,0.2),fontsize=9,ncol=2)
-        fig.tight_layout(rect =(0.01, 0, 1, 1))
+        ##fig.tight_layout(rect =(0.01, 0, 1, 1))
