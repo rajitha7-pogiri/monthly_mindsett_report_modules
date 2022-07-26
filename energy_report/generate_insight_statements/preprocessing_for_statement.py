@@ -22,7 +22,7 @@ def preprocessing_for_statement(df_meta_with_value,
     reading_to_kwh_parameter = reading_interval_in_mins * wm_to_kwh_parameter
     sr_pivot_asset_group = df_meta_with_value.groupby([asset_group, 'period', 'out_of_hours']).sum()["W"] * reading_to_kwh_parameter  # Div 1000 for convertion to MWh
 
-    global df_pivot_asset_group_by_period
+    
     df_pivot_asset_group_by_period_full = sr_pivot_asset_group.unstack(["out_of_hours"])[True].unstack(["period"])
 
     
