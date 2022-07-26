@@ -11,8 +11,8 @@ def preprocessing_for_statement(df_meta_with_value,
                                 row_index_for_total = "Total", 
                                 reading_interval_in_mins=10,
                                 pct_level_tobe_others = 0.06):
-                                
-    global df_pivot_asset_group_by_period
+
+    
     
     #Conversion into MWh
     w_to_kw_para = 1./1000
@@ -23,7 +23,8 @@ def preprocessing_for_statement(df_meta_with_value,
     sr_pivot_asset_group = df_meta_with_value.groupby([asset_group, 'period', 'out_of_hours']).sum()["W"] * reading_to_kwh_parameter  # Div 1000 for convertion to MWh
 
     df_pivot_asset_group_by_period_full = sr_pivot_asset_group.unstack(["out_of_hours"])[True].unstack(["period"])
-
+    
+    global df_pivot_asset_group_by_period
     df_pivot_asset_group_by_period = df_pivot_asset_group_by_period_full.loc[~df_pivot_asset_group_by_period.index.str.lower().str.strip().isin(fixed_group_to_filter)]
 
     # using the 'period' information from the dataframe
