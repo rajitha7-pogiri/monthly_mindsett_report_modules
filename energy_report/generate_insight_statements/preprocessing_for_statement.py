@@ -25,7 +25,7 @@ def preprocessing_for_statement(df_meta_with_value,
     df_pivot_asset_group_by_period_full = sr_pivot_asset_group.unstack(["out_of_hours"])[True].unstack(["period"])
 
     
-    df_pivot_asset_group_by_period = df_pivot_asset_group_by_period_full.loc[~df_pivot_asset_group_by_period.index.str.lower().str.strip().isin(fixed_group_to_filter)]
+    df_pivot_asset_group_by_period = df_pivot_asset_group_by_period_full.loc[df_pivot_asset_group_by_period.index.str.lower().str.strip().isin(fixed_group_to_filter)]
 
     # using the 'period' information from the dataframe
     period_range = df_pivot_asset_group_by_period.columns
