@@ -11,6 +11,8 @@ def preprocessing_for_statement(df_meta_with_value,
                                 row_index_for_total = "Total", 
                                 reading_interval_in_mins=10,
                                 pct_level_tobe_others = 0.06):
+                                
+    global df_pivot_asset_group_by_period
     
     #Conversion into MWh
     w_to_kw_para = 1./1000
