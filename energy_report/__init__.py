@@ -64,7 +64,7 @@ def energy_report(cf):
                                                     working_end_time=cf.working_end_time, 
                                                     working_start_time=cf.working_start_time)
 
-    generate_insight_statements(cf.postgresdb, df_meta_with_value)
+    generate_insight_statements(cf.postgresdb, df_meta_with_value, asset_group="asset_type", fixed_group_to_filter=cf.fixed_group_to_filter)
 
     generate_piechart(df_meta_with_value, cf.asset_group)
     

@@ -7,6 +7,7 @@ from monthly_mindsett_report_modules.utility_functions import get_group_with_oth
 
 def preprocessing_for_statement(df_meta_with_value, 
                                 asset_group='asset_class',
+                                fixed_group_to_filter = [], # should be all in lower case charactor
                                 row_index_for_total = "Total", 
                                 reading_interval_in_mins=10,
                                 pct_level_tobe_others = 0.06):
@@ -19,7 +20,9 @@ def preprocessing_for_statement(df_meta_with_value,
     reading_to_kwh_parameter = reading_interval_in_mins * wm_to_kwh_parameter
     sr_pivot_asset_group = df_meta_with_value.groupby([asset_group, 'period', 'out_of_hours']).sum()["W"] * reading_to_kwh_parameter  # Div 1000 for convertion to MWh
 
-    df_pivot_asset_group_by_period = sr_pivot_asset_group.unstack(["out_of_hours"])[True].unstack(["period"])
+    df_pivot_asset_group_by_period_full = sr_pivot_asset_group.unstack(["out_of_hours"])[True].unstack(["period"])
+
+    df_pivot_asset_group_by_period = df_pivot_asset_group_by_period_full.loc[~df_pivot_asset_group_by_period.index.str.lower().str.strip().isin(fixed_group_to_filter)]
 
     # using the 'period' information from the dataframe
     period_range = df_pivot_asset_group_by_period.columns
