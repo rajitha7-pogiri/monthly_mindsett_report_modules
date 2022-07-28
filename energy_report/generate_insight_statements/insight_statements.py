@@ -13,7 +13,7 @@ def statement_for_biggest_ooh(df_asset_group_period_sum_others, number_for_pick_
     for index, item in enumerate(df_ooh_biggest['sum'].round().astype('int').iteritems()):
 
         #statement_item = "  \t \t \t \t"+str(index+1)+'. '+item[0]+' '+str(item[1])+'kwh,'
-        statement_item = "  \t \t \t \t"+str(index+1)+'.'+item[0]+' '+str(item[1])+'kwh,'
+        statement_item = "  \t \t \t \t"+str(index+1)+'.'+item[0]+''+str(item[1])+'kwh,'
         statement += statement_item
 
     statement = statement[:-1]+'.'
