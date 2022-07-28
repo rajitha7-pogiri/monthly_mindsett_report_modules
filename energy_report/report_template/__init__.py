@@ -188,6 +188,6 @@ def generate_report(site_name, period, statements_list=None, organisation=None, 
         text_list += statement_text
 
     pdf.set_x(29)
-    pdf.write_multicell_with_styles(pdf.w-50,6,text_list)
+    pdf.write_multicell_with_styles(pdf.w-50,5,text_list) #6
 
     pdf.output(report_file_name,'F')
