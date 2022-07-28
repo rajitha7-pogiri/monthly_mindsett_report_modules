@@ -65,10 +65,10 @@ def piechart_comparison_design(df_asset_class_monthly_sum_others, ncol,loc,
 
     fig, ax = plt.subplots(1, 1, figsize=(9, 3.9))
 
-    colors = ['#6DC2B3', '#FF836A', '#FED6D2', '#9F9D9C', '#B6E4E1', '#FEF8C8', '#CFCDCD', '#9DE7BE']
+    colors = ['#6DC2B3', '#FF836A', '#FED6D2', '#9F9D9C', '#B6E4E1', '#FEF8C8', '#CFCDCD', '#9DE7BE','#f7baad','#b3fff2']
     other_colours = ['k', 'w']
 
-    df_asset_class_monthly_sum_others[sum_column].plot.pie(ax=ax, autopct=lambda p: '{:.0f}%'.format(round(p)) if p > 3 else '', colors=colors,
+    df_asset_class_monthly_sum_others[sum_column].plot.pie(ax=ax, autopct=lambda p: '{:.0f}%'.format(round(p)) if p > 4 else '', colors=colors,
                                                       textprops={"color": other_colours[0], "fontsize": 13}, pctdistance=0.77,
                                                       wedgeprops={'linewidth': 1, "edgecolor": other_colours[0]}, labels=None)
 
