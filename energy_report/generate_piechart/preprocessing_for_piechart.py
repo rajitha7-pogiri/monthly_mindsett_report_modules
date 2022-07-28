@@ -5,7 +5,7 @@ from monthly_mindsett_report_modules.utility_functions import get_group_with_oth
 def preprocessing_for_piechart(df_meta_with_value, 
                                 asset_group='asset_class',
                                 reading_interval_in_mins=10,
-                                pct_level_tobe_others = 0.04,
+                                pct_level_tobe_others = 0.03,
                                 period_current=None,
                                 period_step=1):
     # Conversion into MWh
