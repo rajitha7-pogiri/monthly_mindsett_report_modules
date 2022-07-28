@@ -8,11 +8,11 @@ def statement_for_biggest_ooh(df_asset_group_period_sum_others, number_for_pick_
 
     df_ooh_biggest = df_asset_group_period_sum_others.head(number_for_pick_out+1).tail(number_for_pick_out).drop(columns=['gt_4pct','sum_for_sort'])
     
-    statement = f"""The biggest out-of-hours consumers of energy over the previous period are: """
+    statement = f"""The biggest out-of-hours consumers of energy over the previous period were: """
 
     for index, item in enumerate(df_ooh_biggest['sum'].round().astype('int').iteritems()):
 
-        statement_item = "  \t \t \t "+str(index+1)+'. '+item[0]+' '+str(item[1])+' '+'kwh,'
+        statement_item = "  \t \t "+str(index+1)+'. '+item[0]+' '+str(item[1])+' '+'kwh,'
         #statement_item = "  \t \t \t \t"+str(index+1)+'.'+item[0]+str(item[1])+'kwh,'
         statement += statement_item
 
